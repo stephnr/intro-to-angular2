@@ -4,7 +4,7 @@
   "description": "An Introductory tutorial to AngularJS 2 in Typescript",
   "main": "src/index.js",
   "scripts": {
-    "start": "concurrently \"npm run tsc:w\" \"npm run lite\" ",
+    "start": "concurrently \"npm run tsc:w\" \"npm run lite\"  \"gulp\" ",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "lite": "lite-server",
@@ -32,8 +32,12 @@
     "zone.js": "0.6.8"
   },
   "devDependencies": {
+    "autoprefixer": "6.3.5",
     "concurrently": "2.0.0",
     "gulp": "3.9.1",
+    "gulp-load-plugins": "1.2.0",
+    "gulp-postcss": "6.1.0",
+    "gulp-sass": "2.2.0",
     "lite-server": "2.1.0",
     "typescript": "1.8.9",
     "typings": "0.7.9"
