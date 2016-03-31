@@ -1,0 +1,7 @@
+<ul class="error-messages" *ngIf="hasErrors()">
+  <div *ngFor="#label of errorKeys">
+    <li *ngFor="#value of getErrors(label)">
+      {{ label }} {{ value }}
+    </li>
+  </div>
+</ul>

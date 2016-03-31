@@ -1,25 +1,27 @@
-<form (ngSubmit)="onSubmit()">
+<form [ngFormModel]="formData" (ngSubmit)="onSubmit()">
 	<fieldset>
+
+		<list-errors [errors]="errors"></list-errors>
 
 		<fieldset class="form-group" *ngIf="authType === 'register'">
 			<input class="form-control form-control-lg"
 				type="text"
 				placeholder="Username"
-				[(ngModel)]="formData.username" />
+				ngControl="username" />
 		</fieldset>
 
 		<fieldset class="form-group">
 			<input class="form-control form-control-lg"
 				type="email"
 				placeholder="Email"
-				[(ngModel)]="formData.email"/>
+				ngControl="email"/>
 		</fieldset>
 
 		<fieldset class="form-group">
 			<input class="form-control form-control-lg"
 				type="password"
 				placeholder="Password"
-				[(ngModel)]="formData.password"/>
+				ngControl="password"/>
 		</fieldset>
 
 		<button class="btn btn-lg btn-primary pull-xs-right"

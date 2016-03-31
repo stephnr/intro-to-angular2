@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {Title} from 'angular2/platform/browser';
-import {Router, RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
+import {Router, RouterOutlet, RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {AppHeader} from './common/components/appHeader.component';
 import {AppFooter} from './common/components/appFooter.component';
@@ -21,7 +21,7 @@ import { RegisterComponent } from './auth/components/register.component';
 @Component({
   selector: 'conduit-app',
   templateUrl: 'src/app/common/components/layout/appView.html',
-  directives: [ROUTER_DIRECTIVES, AppHeader, AppFooter]
+  directives: [ROUTER_DIRECTIVES, RouterOutlet, AppHeader, AppFooter]
 })
 @RouteConfig([
   { path: '/', name: 'Home', component: HomeComponent, useAsDefault: true },
