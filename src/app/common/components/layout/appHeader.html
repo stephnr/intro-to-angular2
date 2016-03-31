@@ -1,0 +1,41 @@
+<nav class="navbar navbar-light">
+  <div class="container">
+
+    <a class="navbar-brand"
+      [routerLink]="[ 'Home' ]">
+			{{ appName }}
+    </a>
+
+    <!-- Show this for logged out users -->
+    <!-- <ul show-authed="false" -->
+    <ul
+      class="nav navbar-nav pull-xs-right">
+
+      <li class="nav-item">
+        <a class="nav-link"
+          [ngClass]="{active: isActive('')}"
+          [routerLink]="[ 'Home' ]">
+          Home
+        </a>
+      </li>
+
+      <!-- <li class="nav-item">
+        <a class="nav-link"
+          [ngClass]="{active: isActive('')}"
+          [routerLink]="[ 'Login' ]">
+          Sign in
+        </a>
+      </li> -->
+
+      <!-- <li class="nav-item">
+        <a class="nav-link"
+          ui-sref-active="active"
+          ui-sref="app.register">
+          Sign up
+        </a>
+      </li> -->
+
+    </ul>
+
+  </div>
+</nav>

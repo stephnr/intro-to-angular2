@@ -7,7 +7,7 @@
     "start": "concurrently \"npm run tsc:w\" \"npm run lite\"  \"gulp\" ",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
-    "lite": "lite-server",
+    "lite": "lite-server -c config/bs-config.json",
     "typings": "typings",
     "postinstall": "typings install",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Stephn-R/intro-to-angular2#readme",
   "dependencies": {
     "angular2": "2.0.0-beta.12",
+    "angular2-jwt": "0.1.9",
     "conduit-sass": "1.6.0",
     "es6-shim": "0.35.0",
     "reflect-metadata": "0.1.3",

@@ -20,6 +20,12 @@
   ],
   "files": [
     "src/app/app.component.ts",
+    "src/app/common/components/appFooter.component.ts",
+    "src/app/common/components/appHeader.component.ts",
+    "src/app/common/constants/definitions/siteTitles.d.ts",
+    "src/app/common/constants/siteTitles.constants.ts",
+    "src/app/common/services/siteTitle.service.ts",
+    "src/app/home/home.component.ts",
     "src/app/main.ts"
   ],
   "atom": {
