@@ -11,7 +11,9 @@ import {SiteTitleService} from './common/services/siteTitle.service';
 = ROUTE COMPONENTS =
 ===============================================>>>>>*/
 
-import { Home } from './home/home.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './auth/login.component';
+import { RegisterComponent } from './auth/register.component';
 
 /*= End of ROUTE COMPONENTS =*/
 /*=============================================<<<<<*/
@@ -22,10 +24,10 @@ import { Home } from './home/home.component';
   directives: [ROUTER_DIRECTIVES, AppHeader, AppFooter]
 })
 @RouteConfig([
-  { path: '/', name: 'Home', component: Home, useAsDefault: true },
-  // { path: '/login', name: 'Login', component: LoginComponent  },
+  { path: '/', name: 'Home', component: HomeComponent, useAsDefault: true },
+  { path: '/login', name: 'Login', component: LoginComponent  },
   // { path: '/logout', name: 'Logout', component: LogoutComponent  },
-  // { path: '/register', name: 'Register', component: RegisterComponent  },
+  { path: '/register', name: 'Register', component: RegisterComponent  },
   // { path: '/settings', name: 'Settings', component: SettingsComponent  },
   // { path: '/editor', name: 'Editor', component: EditorComponent  },
   // { path: '/editor/:articleId', name: 'Edit-Article', component: EditArticleComponent  },

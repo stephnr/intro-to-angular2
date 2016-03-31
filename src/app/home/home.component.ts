@@ -6,7 +6,7 @@ import {Router, RouteParams, RouteConfig, ROUTER_DIRECTIVES} from 'angular2/rout
   templateUrl: 'src/app/home/layout/home.html',
   directives: [ROUTER_DIRECTIVES]
 })
-export class Home implements OnInit {
+export class HomeComponent implements OnInit {
   constructor(private _router: Router, private _routeParams: RouteParams) {}
   ngOnInit() {}
 }

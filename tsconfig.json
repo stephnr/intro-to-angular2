@@ -20,6 +20,9 @@
   ],
   "files": [
     "src/app/app.component.ts",
+    "src/app/auth/login.component.ts",
+    "src/app/auth/logout.component.ts",
+    "src/app/auth/register.component.ts",
     "src/app/common/components/appFooter.component.ts",
     "src/app/common/components/appHeader.component.ts",
     "src/app/common/constants/definitions/siteTitles.d.ts",
