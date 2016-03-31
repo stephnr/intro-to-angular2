@@ -26,6 +26,7 @@
     "src/app/auth/components/register.component.ts",
     "src/app/common/components/appFooter.component.ts",
     "src/app/common/components/appHeader.component.ts",
+    "src/app/common/components/conduitRouterOutlet.component.ts",
     "src/app/common/components/listErrors.component.ts",
     "src/app/common/constants/app.constants.ts",
     "src/app/common/constants/definitions/app.d.ts",
