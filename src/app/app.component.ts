@@ -12,8 +12,8 @@ import {SiteTitleService} from './common/services/siteTitle.service';
 ===============================================>>>>>*/
 
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './auth/login.component';
-import { RegisterComponent } from './auth/register.component';
+import { LoginComponent } from './auth/components/login.component';
+import { RegisterComponent } from './auth/components/register.component';
 
 /*= End of ROUTE COMPONENTS =*/
 /*=============================================<<<<<*/

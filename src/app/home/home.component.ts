@@ -7,6 +7,11 @@ import {Router, RouteParams, RouteConfig, ROUTER_DIRECTIVES} from 'angular2/rout
   directives: [ROUTER_DIRECTIVES]
 })
 export class HomeComponent implements OnInit {
-  constructor(private _router: Router, private _routeParams: RouteParams) {}
+  appName: string;
+
+  constructor(private _router: Router, private _routeParams: RouteParams) {
+    this.appName = 'conduit';
+  }
+
   ngOnInit() {}
 }

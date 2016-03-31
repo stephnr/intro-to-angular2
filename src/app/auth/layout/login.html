@@ -1,1 +1,24 @@
-<h1>Login</h1>
+<form (ngSubmit)="onSubmit()">
+	<fieldset>
+
+		<fieldset class="form-group">
+			<input class="form-control form-control-lg"
+				type="email"
+				placeholder="Email"
+				[(ngModel)]="formData.email"/>
+		</fieldset>
+
+		<fieldset class="form-group">
+			<input class="form-control form-control-lg"
+				type="password"
+				placeholder="Password"
+				[(ngModel)]="formData.password"/>
+		</fieldset>
+
+		<button class="btn btn-lg btn-primary pull-xs-right"
+			type="submit" (ngSubmit)="onSubmit()">
+			Sign In
+		</button>
+
+	</fieldset>
+</form>
