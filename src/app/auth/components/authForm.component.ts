@@ -1,8 +1,10 @@
 /// <reference path="./definitions/user.d.ts"/>
 
 import {FORM_DIRECTIVES, ControlGroup, Control} from 'angular2/common';
-import {Component, Input} from 'angular2/core';
+import {Component, Input, OnDestroy} from 'angular2/core';
 import {Router} from 'angular2/router';
+
+import {Subscription} from 'rxjs/Subscription'
 
 import {ListErrorsComponent} from '../../common/components/listErrors.component';
 import {UserService} from '../../common/services/user.service';
@@ -13,9 +15,11 @@ import {UserService} from '../../common/services/user.service';
   directives:  [FORM_DIRECTIVES, ListErrorsComponent],
   providers:   [UserService]
 })
-export class AuthFormComponent {
+export class AuthFormComponent implements OnDestroy {
   formData: Object;
   errors: Object;
+
+  subscription: Subscription;
 
   @Input() authType: string;
   @Input() submitTitle: string;
@@ -29,7 +33,7 @@ export class AuthFormComponent {
     this.errors = {};
     this.authType = 'login';
 
-    this._userService.errorsAnnounced$.subscribe(
+    this.subscription = this._userService.errorsAnnounced$.subscribe(
       errors => {
         this.errors = errors;
       }
@@ -40,5 +44,10 @@ export class AuthFormComponent {
     this._userService.attemptAuth(this.authType, JSON.stringify({
       user: this.formData['value']
     }));
+  }
+
+  ngOnDestroy(){
+    // prevent memory leak when component destroyed
+    this.subscription.unsubscribe();
   }
 }
