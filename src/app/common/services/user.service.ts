@@ -31,7 +31,7 @@ export class UserService implements UserServiceInterface {
   }
 
   update(fields: any) {
-    return this.http.put(`${APP_CONSTANTS}/user`, JSON.stringify({ user: fields }))
+    return this.http.put(`${APP_CONSTANTS.api}/user`, JSON.stringify({ user: fields }))
     .toPromise().then(res => {
       this.announcedUserUpdate(res.json().user);
     }).catch(err => {
@@ -49,6 +49,44 @@ export class UserService implements UserServiceInterface {
     }).catch(err => {
       this.announceErrors(err.json());
     });
+  }
+
+  verifyAuth() {
+    if(!this._jWTService.get()) {
+      this.announcedUserUpdate({});
+    } else {
+      this.http.get(`${APP_CONSTANTS.api}/user`).toPromise()
+      .then(res => {
+        this.announcedUserUpdate(res.json().user);
+      }).catch(err => {
+        this._jWTService.destroy();
+        this.announcedUserUpdate({});
+        this.announceErrors(err.json());
+      });
+    }
+  }
+
+  ensureAuthIs(userFoundFlag : boolean) {
+    let subscription = this.userAnnounced$.subscribe(
+      user => {
+        if((Object.keys(user).length === 0 && userFoundFlag) ||
+           (Object.keys(user).length > 0 && !userFoundFlag)) {
+          this._router.navigate(['Home']);
+        } else {
+          // all is good!
+        }
+      }
+    );
+
+    setTimeout(() => {
+      subscription.unsubscribe();
+    }, 5000);
+  }
+
+  logout() {
+    this.announcedUserUpdate({});
+    this._jWTService.destroy();
+    this._router.navigate(['Home']);
   }
 
   announceErrors(errors: Object) {
