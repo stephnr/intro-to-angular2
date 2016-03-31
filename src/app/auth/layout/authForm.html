@@ -1,31 +1,31 @@
-<form>
-	<!-- <fieldset ng-disabled="$ctrl.isSubmitting">
+<form (ngSubmit)="onSubmit()">
+	<fieldset>
 
-		<fieldset class="form-group" ng-show="$ctrl.authType === 'register'">
+		<fieldset class="form-group" *ngIf="authType === 'register'">
 			<input class="form-control form-control-lg"
 				type="text"
 				placeholder="Username"
-				ng-model="$ctrl.formData.username" />
+				[(ngModel)]="formData.username" />
 		</fieldset>
 
 		<fieldset class="form-group">
 			<input class="form-control form-control-lg"
 				type="email"
 				placeholder="Email"
-				ng-model="$ctrl.formData.email" />
+				[(ngModel)]="formData.email"/>
 		</fieldset>
 
 		<fieldset class="form-group">
 			<input class="form-control form-control-lg"
 				type="password"
 				placeholder="Password"
-				ng-model="$ctrl.formData.password" />
+				[(ngModel)]="formData.password"/>
 		</fieldset>
 
 		<button class="btn btn-lg btn-primary pull-xs-right"
-			type="submit"
-			ng-bind="$ctrl.title">
+			type="submit" (ngSubmit)="onSubmit()">
+			{{ submitTitle }}
 		</button>
 
-	</fieldset> -->
+	</fieldset>
 </form>

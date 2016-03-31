@@ -20,9 +20,8 @@
   ],
   "files": [
     "src/app/app.component.ts",
+    "src/app/auth/components/authForm.component.ts",
     "src/app/auth/components/login.component.ts",
-    "src/app/auth/components/loginForm.component.ts",
-    "src/app/auth/components/logout.component.ts",
     "src/app/auth/components/register.component.ts",
     "src/app/common/components/appFooter.component.ts",
     "src/app/common/components/appHeader.component.ts",

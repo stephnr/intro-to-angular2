@@ -1,19 +1,22 @@
 import {NgForm, NgModel} from 'angular2/common';
-import {Component} from 'angular2/core';
+import {Component, Input} from 'angular2/core';
 
 @Component({
-  selector: 'login-form',
-  templateUrl: 'src/app/auth/layout/login.html',
+  selector: 'auth-form',
+  templateUrl: 'src/app/auth/layout/authForm.html',
   directives: [NgForm, NgModel]
 })
-export class LoginFormComponent {
+export class AuthFormComponent {
   formData: Object;
+  @Input() authType: string;
+  @Input() submitTitle: string;
 
   constructor() {
     this.formData = {
       email:    '',
       password: ''
     }
+    this.authType = 'login';
   }
 
   onSubmit() {
