@@ -7,8 +7,10 @@ export interface UserServiceInterface {
   update(fields: any): void;
   attemptAuth(type: string, formData: Object): void;
   ensureAuthIs(userFoundFlag: boolean): void;
+  isAuthorized(): boolean;
   logout(): void;
-
+  
   announceErrors(errors: Object): void;
   verifyAuth(): void;
+  getUser(): void;
 }

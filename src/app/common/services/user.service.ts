@@ -15,17 +15,17 @@ let options = new RequestOptions({ headers: headers });
 @Injectable()
 export class UserService implements UserServiceInterface {
 
-  private _usersURL = '/users';
+  private _usersURL = 'users';
   private _errors : Subject<Object>;
   private _user : Subject<Object>;
 
   public errorsAnnounced$ : Observable<Object>;
-  public userAnnounced$ : Observable<Object>;
+  public userAnnounced$ : Observable<User>;
 
   constructor (private _router : Router, private http: Http, private _jWTService: JWTService) {
     this._jWTService = _jWTService;
     this._errors = new Subject<Object>();
-    this._user = new Subject<Object>();
+    this._user = new Subject<User>();
     this.errorsAnnounced$ = this._errors.asObservable();
     this.userAnnounced$ = this._user.asObservable();
   }
@@ -41,7 +41,7 @@ export class UserService implements UserServiceInterface {
 
   attemptAuth(type: string, formData: any) {
     let route = (type === 'login') ? `${this._usersURL}/login` : this._usersURL;
-    return this.http.post(`${APP_CONSTANTS.api}/${route}`, formData, options).toPromise()
+    return this.http.post(`${APP_CONSTANTS.api}/${route}`, formData, this._buildSimpleHeaders()).toPromise()
     .then(res => {
       this._jWTService.save(res.json().user.token);
       this.announcedUserUpdate(res.json().user);
@@ -55,11 +55,16 @@ export class UserService implements UserServiceInterface {
     if(!this._jWTService.get()) {
       this.announcedUserUpdate({});
     } else {
-      this.http.get(`${APP_CONSTANTS.api}/user`).toPromise()
+      this.getUser();
+    }
+  }
+
+  getUser() {
+    if(!!this._jWTService.get()) {
+      this.http.get(`${APP_CONSTANTS.api}/user`, this._buildAuthHeaders()).toPromise()
       .then(res => {
         this.announcedUserUpdate(res.json().user);
       }).catch(err => {
-        this._jWTService.destroy();
         this.announcedUserUpdate({});
         this.announceErrors(err.json());
       });
@@ -67,20 +72,18 @@ export class UserService implements UserServiceInterface {
   }
 
   ensureAuthIs(userFoundFlag : boolean) {
-    let subscription = this.userAnnounced$.subscribe(
-      user => {
-        if((Object.keys(user).length === 0 && userFoundFlag) ||
-           (Object.keys(user).length > 0 && !userFoundFlag)) {
-          this._router.navigate(['Home']);
-        } else {
-          // all is good!
-        }
-      }
-    );
+    let token = this._jWTService.get();
+    if((!token && userFoundFlag) ||
+      (!!token && !userFoundFlag)) {
+      this._router.navigate(['Home']);
+    } else {
+      // all is good!
+    }
+  }
 
-    setTimeout(() => {
-      subscription.unsubscribe();
-    }, 5000);
+  isAuthorized() {
+    const token = this._jWTService.get();
+    return !!token;
   }
 
   logout() {
@@ -95,5 +98,15 @@ export class UserService implements UserServiceInterface {
 
   announcedUserUpdate(user: Object) {
     this._user.next(user);
+  }
+
+  private _buildAuthHeaders() {
+    let headers = new Headers({ 'Content-Type': 'application/json', 'authorization': `Token ${this._jWTService.get()}` });
+    return options = new RequestOptions({ headers: headers });
+  }
+
+  private _buildSimpleHeaders() {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    return options = new RequestOptions({ headers: headers });
   }
 }

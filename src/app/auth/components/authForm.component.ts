@@ -1,10 +1,10 @@
 /// <reference path="./definitions/user.d.ts"/>
 
 import {FORM_DIRECTIVES, ControlGroup, Control} from 'angular2/common';
-import {Component, Input, OnDestroy} from 'angular2/core';
+import {Component, Input, OnInit, OnDestroy} from 'angular2/core';
 import {Router} from 'angular2/router';
 
-import {Subscription} from 'rxjs/Subscription'
+import {Subscription} from 'rxjs/Subscription';
 
 import {ListErrorsComponent} from '../../common/components/listErrors.component';
 import {UserService} from '../../common/services/user.service';
@@ -15,7 +15,7 @@ import {UserService} from '../../common/services/user.service';
   directives:  [FORM_DIRECTIVES, ListErrorsComponent],
   providers:   [UserService]
 })
-export class AuthFormComponent implements OnDestroy {
+export class AuthFormComponent implements OnInit, OnDestroy {
   formData: Object;
   errors: Object;
 
@@ -44,6 +44,10 @@ export class AuthFormComponent implements OnDestroy {
     this._userService.attemptAuth(this.authType, JSON.stringify({
       user: this.formData['value']
     }));
+  }
+
+  ngOnInit() {
+    this._userService.ensureAuthIs(false);
   }
 
   ngOnDestroy(){

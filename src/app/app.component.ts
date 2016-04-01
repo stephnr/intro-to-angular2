@@ -49,7 +49,7 @@ import { RegisterComponent } from './auth/components/register.component';
   // { path: '/editor', name: 'Editor', component: EditorComponent  },
   // { path: '/editor/:articleId', name: 'Edit-Article', component: EditArticleComponent  },
   // { path: '/article/:articleId', name: 'View-Article', component: ArticleComponent  },
-  // { path: '/@/:username', name: 'User', component: ProfilePageComponent  },
+  // { path: '/@/:username', name: 'User', component: UserPageComponent  },
   // { path: '/@/:username', name: 'User-Favorites', component: UserFavoritesComponent  }
 ])
 export class AppComponent {

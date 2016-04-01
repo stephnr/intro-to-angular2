@@ -1,6 +1,8 @@
 import {Directive, ElementRef, DynamicComponentLoader, Attribute} from 'angular2/core';
 import {Router, RouterOutlet, ComponentInstruction} from 'angular2/router';
 
+import {APP_CONSTANTS} from '../constants/app.constants';
+
 @Directive({
   selector: 'conduit-router-outlet'
 })
@@ -14,13 +16,13 @@ export class ConduitRouterOutlet extends RouterOutlet {
     this.publicRoutes = {
       'home': true,
       'login': true,
-      'signup': true
+      'register': true
     };
   }
 
   activate(nextInstruction: ComponentInstruction) {
     const url = nextInstruction.urlPath;
-    if (!this.publicRoutes[url] && !window.localStorage.getItem('jwt')) {
+    if (!this.publicRoutes[url] && !window.localStorage.getItem(APP_CONSTANTS.jwtKey)) {
       this.parentRouter.navigate(['Login']);
     }
     return super.activate(nextInstruction);

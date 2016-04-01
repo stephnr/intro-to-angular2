@@ -11,27 +11,54 @@
 
       <li class="nav-item">
         <a class="nav-link"
-          [ngClass]="{active: isActive('')}"
+          [ngClass]="{active: isActive('HomeComponent')}"
           [routerLink]="[ 'Home' ]">
           Home
         </a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!isAuthorized()">
         <a class="nav-link"
-          [ngClass]="{active: isActive('/login')}"
+          [ngClass]="{active: isActive('LoginComponent')}"
           [routerLink]="[ 'Login' ]">
           Sign in
         </a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!isAuthorized()">
         <a class="nav-link"
-          [ngClass]="{active: isActive('/register')}"
+          [ngClass]="{active: isActive('RegisterComponent')}"
           [routerLink]="[ 'Register' ]">
           Sign up
         </a>
       </li>
+
+      <!-- Show for Authorized Users Only -->
+
+      <!-- <li class="nav-item" *ngIf="isAuthorized()">
+        <a class="nav-link"
+          [ngClass]="{active: isActive('EditorComponent')}"
+          [routerLink]="[ 'Editor' ]">
+          <i class="ion-compose"></i>&nbsp;New Post
+        </a>
+      </li> -->
+
+      <!-- <li class="nav-item" *ngIf="isAuthorized()">
+        <a class="nav-link"
+          [ngClass]="{active: isActive('SettingsComponent')}"
+          [routerLink]="[ 'Settings' ]">
+          <i class="ion-gear-a"></i>&nbsp;Settings
+        </a>
+      </li> -->
+
+      <!-- <li class="nav-item" *ngIf="isAuthorized()">
+        <a class="nav-link"
+          [ngClass]="{active: isActive('UserPageComponent')}"
+          [routerLink]="[ 'User', { username: currentUser.username } ]">
+          <img [src]="currentUser.image" class="user-pic"/>
+          {{ currentUser.username }}
+        </a>
+      </li> -->
 
     </ul>
 
