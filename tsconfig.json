@@ -32,6 +32,7 @@
     "src/app/common/constants/definitions/app.d.ts",
     "src/app/common/constants/definitions/siteTitles.d.ts",
     "src/app/common/constants/siteTitles.constants.ts",
+    "src/app/common/directives/isAuthorized.directive.ts",
     "src/app/common/services/definitions/user.d.ts",
     "src/app/common/services/jwt.service.ts",
     "src/app/common/services/siteTitle.service.ts",

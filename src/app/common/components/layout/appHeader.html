@@ -17,7 +17,7 @@
         </a>
       </li>
 
-      <li class="nav-item" *ngIf="!isAuthorized()">
+      <li class="nav-item" showUnAuthorized>
         <a class="nav-link"
           [ngClass]="{active: isActive('LoginComponent')}"
           [routerLink]="[ 'Login' ]">
@@ -25,7 +25,7 @@
         </a>
       </li>
 
-      <li class="nav-item" *ngIf="!isAuthorized()">
+      <li class="nav-item" showUnAuthorized>
         <a class="nav-link"
           [ngClass]="{active: isActive('RegisterComponent')}"
           [routerLink]="[ 'Register' ]">
@@ -35,7 +35,7 @@
 
       <!-- Show for Authorized Users Only -->
 
-      <!-- <li class="nav-item" *ngIf="isAuthorized()">
+      <!-- <li class="nav-item" showAuthorized>
         <a class="nav-link"
           [ngClass]="{active: isActive('EditorComponent')}"
           [routerLink]="[ 'Editor' ]">
@@ -43,7 +43,7 @@
         </a>
       </li> -->
 
-      <!-- <li class="nav-item" *ngIf="isAuthorized()">
+      <!-- <li class="nav-item" showAuthorized>
         <a class="nav-link"
           [ngClass]="{active: isActive('SettingsComponent')}"
           [routerLink]="[ 'Settings' ]">
@@ -51,7 +51,7 @@
         </a>
       </li> -->
 
-      <!-- <li class="nav-item" *ngIf="isAuthorized()">
+      <!-- <li class="nav-item" showAuthorized>
         <a class="nav-link"
           [ngClass]="{active: isActive('UserPageComponent')}"
           [routerLink]="[ 'User', { username: currentUser.username } ]">

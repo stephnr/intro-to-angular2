@@ -9,13 +9,15 @@ import {Subscription} from 'rxjs/Subscription';
 
 import {UserService} from '../services/user.service';
 
+import {AUTHORIZE_DIRECTIVES} from '../directives/isAuthorized.directive';
+
 /*= End of REQUIRED MODULES =*/
 /*=============================================<<<<<*/
 
 @Component({
   selector:    'app-header',
   templateUrl: 'src/app/common/components/layout/appHeader.html',
-  directives:  [ROUTER_DIRECTIVES],
+  directives:  [ROUTER_DIRECTIVES, AUTHORIZE_DIRECTIVES],
   providers:   [UserService]
 })
 export class AppHeader implements OnInit {
