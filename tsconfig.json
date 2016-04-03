@@ -24,6 +24,7 @@
     "src/app/auth/components/definitions/user.d.ts",
     "src/app/auth/components/login.component.ts",
     "src/app/auth/components/register.component.ts",
+    "src/app/auth/components/user.ts",
     "src/app/common/components/appFooter.component.ts",
     "src/app/common/components/appHeader.component.ts",
     "src/app/common/components/conduitRouterOutlet.component.ts",
@@ -39,7 +40,10 @@
     "src/app/common/services/user.service.ts",
     "src/app/editor/editor.component.ts",
     "src/app/home/home.component.ts",
-    "src/app/main.ts"
+    "src/app/main.ts",
+    "src/app/profile/profile.component.ts",
+    "src/app/profile/profileFavorites.component.ts",
+    "src/app/settings/settings.component.ts"
   ],
   "atom": {
     "rewriteTsconfig": true

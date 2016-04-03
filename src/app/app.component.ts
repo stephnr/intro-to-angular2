@@ -31,6 +31,9 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/components/login.component';
 import { RegisterComponent } from './auth/components/register.component';
 import { EditorComponent } from './editor/editor.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileFavoritesComponent } from './profile/profileFavorites.component';
 
 /*= End of ROUTE COMPONENTS =*/
 /*=============================================<<<<<*/
@@ -46,12 +49,12 @@ import { EditorComponent } from './editor/editor.component';
   { path: '/login', name: 'Login', component: LoginComponent  },
   // { path: '/logout', name: 'Logout', component: LogoutComponent  },
   { path: '/register', name: 'Register', component: RegisterComponent  },
-  // { path: '/settings', name: 'Settings', component: SettingsComponent  },
+  { path: '/settings', name: 'Settings', component: SettingsComponent  },
   { path: '/editor', name: 'Editor', component: EditorComponent  },
   // { path: '/editor/:articleId', name: 'Edit-Article', component: EditArticleComponent  },
   // { path: '/article/:articleId', name: 'View-Article', component: ArticleComponent  },
-  // { path: '/@/:username', name: 'User', component: UserPageComponent  },
-  // { path: '/@/:username', name: 'User-Favorites', component: UserFavoritesComponent  }
+  { path: '/@/:username', name: 'Profile', component: ProfileComponent  },
+  { path: '/@/:username/favorites', name: 'ProfileFavorites', component: ProfileFavoritesComponent  }
 ])
 export class AppComponent {
   constructor(private _router: Router, title: Title, private SiteTitleService: SiteTitleService) {
