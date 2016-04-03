@@ -17,27 +17,27 @@
         <div class="feed-toggle">
           <ul class="nav nav-pills outline-active">
 
-            <!-- <li class="nav-item" show-authed="true">
-              <a href="" class="nav-link"
-                ng-class="{ active: $ctrl.listConfig.type === 'feed' }"
-                ng-click="$ctrl.changeList({ type: 'feed' })">
+            <li class="nav-item" showAuthorized>
+              <a href="#" class="nav-link"
+                [ngClass]="{active: listConfig.type === 'feed'}"
+                (click)="changeList({ type: 'feed' })">
                 Your Feed
               </a>
-            </li> -->
+            </li>
 
-            <!-- <li class="nav-item">
-              <a href="" class="nav-link"
-                ng-class="{ active: $ctrl.listConfig.type === 'all' && !$ctrl.listConfig.filters }"
-                ng-click="$ctrl.changeList({ type: 'all' })">
+            <li class="nav-item">
+              <a href="#" class="nav-link"
+                [ngClass]="{active: listConfig.type === 'all' && !listConfig.filters}"
+                (click)="changeList({ type: 'all' })">
                 Global Feed
               </a>
-            </li> -->
+            </li>
 
-            <!-- <li class="nav-item" ng-show="$ctrl.listConfig.filters.tag">
-              <a href="" class="nav-link active">
-                <i class="ion-pound"></i> {{$ctrl.listConfig.filters.tag}}
+            <li class="nav-item" *ngIf="tagFilterExists()">
+              <a href="#" class="nav-link active">
+                <i class="ion-pound"></i> {{ listConfig.filters.tag }}
               </a>
-            </li> -->
+            </li>
 
           </ul>
         </div>
@@ -53,13 +53,13 @@
 
           <p>Popular Tags</p>
 
-          <!-- <div class="tag-list" ng-show="$ctrl.tags">
+          <div class="tag-list" *ngIf="tags">
             <a href="" class="tag-default tag-pill"
-              ng-click="$ctrl.changeList({ type: 'all', filters: { tag: tagName } })"
-              ng-repeat="tagName in $ctrl.tags"
-              ng-bind="tagName">
+              (click)="changeList({ type: 'all', filters: {tag: tagName} })"
+              *ngFor="#tagName of tags">
+              {{ tagName }}
             </a>
-          </div> -->
+          </div>
 
           <!-- <div ng-show="!$ctrl.tagsLoaded">
             Loading tags...
