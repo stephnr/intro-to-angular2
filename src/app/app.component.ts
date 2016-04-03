@@ -30,6 +30,7 @@ import {AppFooter} from './common/components/appFooter.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/components/login.component';
 import { RegisterComponent } from './auth/components/register.component';
+import { EditorComponent } from './editor/editor.component';
 
 /*= End of ROUTE COMPONENTS =*/
 /*=============================================<<<<<*/
@@ -46,7 +47,7 @@ import { RegisterComponent } from './auth/components/register.component';
   // { path: '/logout', name: 'Logout', component: LogoutComponent  },
   { path: '/register', name: 'Register', component: RegisterComponent  },
   // { path: '/settings', name: 'Settings', component: SettingsComponent  },
-  // { path: '/editor', name: 'Editor', component: EditorComponent  },
+  { path: '/editor', name: 'Editor', component: EditorComponent  },
   // { path: '/editor/:articleId', name: 'Edit-Article', component: EditArticleComponent  },
   // { path: '/article/:articleId', name: 'View-Article', component: ArticleComponent  },
   // { path: '/@/:username', name: 'User', component: UserPageComponent  },

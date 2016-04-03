@@ -37,6 +37,7 @@
     "src/app/common/services/jwt.service.ts",
     "src/app/common/services/siteTitle.service.ts",
     "src/app/common/services/user.service.ts",
+    "src/app/editor/editor.component.ts",
     "src/app/home/home.component.ts",
     "src/app/main.ts"
   ],
