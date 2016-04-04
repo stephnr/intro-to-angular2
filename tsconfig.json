@@ -21,6 +21,8 @@
   "files": [
     "src/app/app.component.ts",
     "src/app/article/articleList.component.ts",
+    "src/app/article/articleMeta.component.ts",
+    "src/app/article/articlePreview.component.ts",
     "src/app/auth/components/authForm.component.ts",
     "src/app/auth/components/definitions/user.d.ts",
     "src/app/auth/components/login.component.ts",
@@ -29,6 +31,7 @@
     "src/app/common/components/appFooter.component.ts",
     "src/app/common/components/appHeader.component.ts",
     "src/app/common/components/conduitRouterOutlet.component.ts",
+    "src/app/common/components/favoriteBtn.component.ts",
     "src/app/common/components/listErrors.component.ts",
     "src/app/common/constants/app.constants.ts",
     "src/app/common/constants/definitions/app.d.ts",

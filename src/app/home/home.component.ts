@@ -41,9 +41,11 @@ export class HomeComponent implements OnInit {
 
   public userSubscription: Subscription;
   public tagsSubscription: Subscription;
+  public articlesSubscription: Subscription;
 
   public user: User;
   public tags: Object;
+  public articles: any;
 
   public tagsLoaded: boolean;
 
@@ -52,6 +54,7 @@ export class HomeComponent implements OnInit {
       (user: User) => {
         this.user = user;
         this.listConfig.type = 'feed';
+        this.runQuery();
       }
     );
 
@@ -59,6 +62,13 @@ export class HomeComponent implements OnInit {
       (tags: any) => {
         this.tags = tags.tags;
         this.tagsLoaded = true;
+      }
+    );
+
+    this.articlesSubscription = this._articleService.articlesAnnounced$.subscribe(
+      (articles: any) => {
+        this.articles = articles;
+        this.listConfig.totalPages = Math.ceil(articles.length / this.limit);
       }
     );
   }

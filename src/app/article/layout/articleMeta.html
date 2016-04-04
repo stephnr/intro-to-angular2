@@ -1,0 +1,20 @@
+<div class="article-meta">
+  <a [routerLink]="[ 'Profile', { username: article.author.username } ]">
+    <img [src]="article.author.image" />
+  </a>
+
+  <div class="info">
+    <a class="author"
+      [routerLink]="[ 'Profile', { username: article.author.username } ]">
+			{{ article.author.username }}
+    </a>
+    <span class="date">
+			{{ buildDate(article.createdAt) | date: 'longDate' }}
+    </span>
+  </div>
+
+  <favorite-btn
+    [article]="article"
+    class="pull-xs-right">
+  </favorite-btn>
+</div>

@@ -4,7 +4,7 @@
 
 import {NgIf} from 'angular2/common';
 
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit, OnDestroy} from 'angular2/core';
 import {Router, Location, RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {Subscription} from 'rxjs/Subscription';
@@ -23,7 +23,7 @@ import {AUTHORIZE_DIRECTIVES} from '../directives/isAuthorized.directive';
   directives:  [NgIf, ROUTER_DIRECTIVES, AUTHORIZE_DIRECTIVES],
   providers:   [UserService]
 })
-export class AppHeader implements OnInit {
+export class AppHeader implements OnInit, OnDestroy {
   public appName: string;
   public user: User;
 
@@ -61,5 +61,9 @@ export class AppHeader implements OnInit {
 
   ngOnInit() {
     this._userService.getUser();
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
   }
 }

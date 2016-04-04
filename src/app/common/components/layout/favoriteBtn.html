@@ -1,0 +1,9 @@
+<button class="btn btn-sm"
+  [ngClass]="{ 'disabled': isSubmitting,
+               'btn-outline-primary': !article.favorited,
+               'btn-primary': article.favorited }"
+  (click)="submit()">
+
+  <i class="ion-heart"></i> {{ article.favoritesCount }}
+
+</button>

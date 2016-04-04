@@ -7,7 +7,9 @@ import {Router} from 'angular2/router';
 
 import {Subscription} from 'rxjs/Subscription';
 
-import {ArticleService} from '../common/services/articles.service';
+/*----------- COMPONENTS -----------*/
+
+import {ArticlePreview} from './articlePreview.component';
 
 /*= End of REQUIRED MODULES =*/
 /*=============================================<<<<<*/
@@ -15,26 +17,10 @@ import {ArticleService} from '../common/services/articles.service';
 @Component({
   selector:    'article-list',
   templateUrl: 'src/app/article/layout/articleList.html',
-  providers:   [ArticleService]
+  directives:  [ArticlePreview]
 })
-export class ArticleList implements OnDestroy {
+export class ArticleList {
   @Input() limit: number;
   @Input() listConfig: any;
-  public list: Array<any>;
-  public loading: boolean;
-  public articlesSubscription: Subscription;
-
-  constructor(private _articleService: ArticleService) {
-    this.articlesSubscription = this._articleService.articlesAnnounced$.subscribe(
-      (articles: any) => {
-        this.loading = false;
-        this.list = articles;
-        this.listConfig.totalPages = Math.ceil(articles.length / this.limit);
-      }
-    );
-  }
-
-  ngOnDestroy() {
-    this.articlesSubscription.unsubscribe();
-  }
+  @Input() articles: any;
 }

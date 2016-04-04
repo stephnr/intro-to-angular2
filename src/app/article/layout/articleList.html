@@ -1,7 +1,7 @@
-<!-- <article-preview
-  article="article"
-  ng-repeat="article in $ctrl.list">
-</article-preview> -->
+<article-preview
+	*ngFor="#article of articles"
+	[article]="article">
+</article-preview>
 
 <!-- <div class="article-preview"
   ng-hide="!$ctrl.loading">

@@ -36,12 +36,14 @@ export class ArticleService {
 
   // Favorite an article
   favorite(slug: string) {
-    return this.http.post(`${APP_CONSTANTS.api}/${this._articlesURL}/${slug}/favorite`, '').toPromise();
+    let options = new RequestOptions({ headers: this._buildAuthHeaders() });
+    return this.http.post(`${APP_CONSTANTS.api}/${this._articlesURL}/${slug}/favorite`, '', options).toPromise();
   }
 
   // Unfavorite an article
   unfavorite(slug: string) {
-    return this.http.delete(`${APP_CONSTANTS.api}/${this._articlesURL}/${slug}/favorite`).toPromise();
+    let options = new RequestOptions({ headers: this._buildAuthHeaders() });
+    return this.http.delete(`${APP_CONSTANTS.api}/${this._articlesURL}/${slug}/favorite`, options).toPromise();
   }
 
   // Creates or updates an article
@@ -86,7 +88,7 @@ export class ArticleService {
       filters: Object - Key value of URL params (i.e. {author:"ericsimons"} )
     }
   */
-  query(config) {
+  query(config: any) {
     // Create the $http object for this request
     let options = new RequestOptions({
       url:    `${APP_CONSTANTS.api}/${this._articlesURL}/${((config.type === 'feed') ? '/feed' : '')}`,
