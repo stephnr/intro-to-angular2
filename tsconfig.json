@@ -20,6 +20,7 @@
   ],
   "files": [
     "src/app/app.component.ts",
+    "src/app/article/articleList.component.ts",
     "src/app/auth/components/authForm.component.ts",
     "src/app/auth/components/definitions/user.d.ts",
     "src/app/auth/components/login.component.ts",
@@ -34,6 +35,7 @@
     "src/app/common/constants/definitions/siteTitles.d.ts",
     "src/app/common/constants/siteTitles.constants.ts",
     "src/app/common/directives/isAuthorized.directive.ts",
+    "src/app/common/services/articles.service.ts",
     "src/app/common/services/definitions/tags.d.ts",
     "src/app/common/services/definitions/user.d.ts",
     "src/app/common/services/jwt.service.ts",

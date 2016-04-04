@@ -43,7 +43,7 @@
         </div>
 
         <!-- List the current articles -->
-        <!-- <article-list limit="10" list-config="$ctrl.listConfig"></article-list> -->
+        <article-list [limit]="limit" [listConfig]="listConfig"></article-list>
 
       </div>
 
@@ -61,14 +61,14 @@
             </a>
           </div>
 
-          <!-- <div ng-show="!$ctrl.tagsLoaded">
+          <div *ngIf="!tagsLoaded">
             Loading tags...
-          </div> -->
+          </div>
 
-          <!-- <div class="post-preview"
-            ng-show="$ctrl.tagsLoaded && !$ctrl.tags.length">
+          <div class="post-preview"
+            *ngIf="tagsLoaded && !tags.length">
             No tags are here... yet.
-          </div> -->
+          </div>
 
         </div>
       </div>

@@ -9,12 +9,21 @@ import {Router, RouteParams, RouteConfig, ROUTER_DIRECTIVES} from 'angular2/rout
 
 import {Subscription} from 'rxjs/Subscription';
 
+/*----------- SERVICES -----------*/
+
 import {UserService} from '../common/services/user.service';
 import {User} from '../auth/components/user';
 
 import {TagsService} from '../common/services/tags.service';
+import {ArticleService} from '../common/services/articles.service';
+
+/*----------- DIRECTIVES -----------*/
 
 import {AUTHORIZE_DIRECTIVES} from '../common/directives/isAuthorized.directive';
+
+/*----------- COMPONENTS -----------*/
+
+import {ArticleList} from '../article/articleList.component';
 
 /*= End of REQUIRED MODULES =*/
 /*=============================================<<<<<*/
@@ -22,12 +31,13 @@ import {AUTHORIZE_DIRECTIVES} from '../common/directives/isAuthorized.directive'
 @Component({
   selector:    'home',
   templateUrl: 'src/app/home/layout/home.html',
-  directives:  [COMMON_DIRECTIVES, ROUTER_DIRECTIVES, AUTHORIZE_DIRECTIVES],
-  providers:   [UserService, TagsService]
+  directives:  [COMMON_DIRECTIVES, ROUTER_DIRECTIVES, AUTHORIZE_DIRECTIVES, ArticleList],
+  providers:   [UserService, TagsService, ArticleService]
 })
 export class HomeComponent implements OnInit {
   public appName: string;
   public listConfig: any;
+  public limit: number;
 
   public userSubscription: Subscription;
   public tagsSubscription: Subscription;
@@ -35,14 +45,9 @@ export class HomeComponent implements OnInit {
   public user: User;
   public tags: Object;
 
-  constructor(private _router: Router, private _routeParams: RouteParams, private _userService: UserService, private _tagsService: TagsService) {
-    this.appName = 'conduit';
-    this.user = new User();
-    this.listConfig = {
-      type: 'all'
-    };
-    this.tags = [];
+  public tagsLoaded: boolean;
 
+  constructor(private _router: Router, private _routeParams: RouteParams, private _userService: UserService, private _tagsService: TagsService, private _articleService: ArticleService) {
     this.userSubscription = this._userService.userAnnounced$.subscribe(
       (user: User) => {
         this.user = user;
@@ -53,20 +58,49 @@ export class HomeComponent implements OnInit {
     this.tagsSubscription = this._tagsService.tagsAnnounced$.subscribe(
       (tags: any) => {
         this.tags = tags.tags;
+        this.tagsLoaded = true;
       }
     );
   }
 
+  resetVars() {
+    this.limit = 10;
+    this.appName = 'conduit';
+    this.user = new User();
+    this.listConfig = {
+      type: 'all'
+    };
+    this.tags = [];
+    this.tagsLoaded = false;
+  }
+
   changeList(list: any) {
     this.listConfig = list;
+    this.runQuery();
   }
 
   tagFilterExists() {
     return this.listConfig.filters ? this.listConfig.hasOwnProperty('tag') : false;;
   }
 
+  runQuery() {
+    let queryConfig = {
+      type:    this.listConfig.type,
+      filters: this.listConfig.filters || {}
+    };
+    let currentPage = this.listConfig.currentPage || 0;
+
+    // Add the offset filter
+    queryConfig.filters.offset = (this.limit * (currentPage - 1));
+
+    // Run the query
+    this._articleService.query(queryConfig);
+  }
+
   ngOnInit() {
+    this.resetVars();
     this._userService.getUser();
     this._tagsService.getAll();
+    this.runQuery();
   }
 }
