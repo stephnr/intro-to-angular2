@@ -7,9 +7,13 @@ import {Component, Input} from 'angular2/core';
 import {Router, RouterLink} from 'angular2/router';
 
 import {ArticleService} from '../common/services/articles.service';
+
 import {User} from '../auth/components/user';
 import {Article} from './article';
+
 import {ArticleMeta} from './articleMeta.component'
+import {FavoriteButton} from '../common/components/favoriteBtn.component';
+import {FollowBtn} from '../common/components/followBtn.component';
 
 /*= End of REQUIRED MODULES =*/
 /*=============================================<<<<<*/
@@ -18,7 +22,7 @@ import {ArticleMeta} from './articleMeta.component'
   selector:    'article-actions',
   templateUrl: 'src/app/article/layout/articleActions.html',
   providers:   [ArticleService],
-  directives:  [NgIf, ArticleMeta]
+  directives:  [NgIf, ArticleMeta, FavoriteButton, FollowBtn]
 })
 export class ArticleActions {
   public canModify: boolean;

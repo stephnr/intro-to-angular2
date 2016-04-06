@@ -9,6 +9,7 @@ export class User implements UserInterface {
   token: string;
   updatedAt: string;
   username: string;
+  following: boolean;
 
   constructor() {
     this.bio = '';
@@ -19,5 +20,6 @@ export class User implements UserInterface {
     this.token = '';
     this.updatedAt = '';
     this.username = '';
+    this.following = false;
   }
 }

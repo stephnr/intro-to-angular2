@@ -1,5 +1,11 @@
 <div class="article-preview">
-  <article-meta [article]="article"></article-meta>
+  <article-meta [article]="article">
+    <favorite-btn
+      [article]="article"
+      class="pull-xs-right">
+      {{ article.favoritesCount }}
+    </favorite-btn>
+  </article-meta>
 
   <a [routerLink]="[ 'View-Article', { slug: article.slug } ]" class="preview-link" href="#">
     <h1>{{ article.title }}</h1>

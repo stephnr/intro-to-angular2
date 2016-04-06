@@ -4,6 +4,5 @@
                'btn-primary': article.favorited }"
   (click)="submit()">
 
-  <i class="ion-heart"></i> {{ article.favoritesCount }}
-
+  <i class="ion-heart"></i> <ng-content></ng-content>
 </button>

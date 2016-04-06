@@ -19,7 +19,7 @@
 
   <!-- Otherwise, show favorite & follow buttons -->
   <span *ngIf="!canModify">
-    <!-- <follow-btn [user]="article.author"></follow-btn> -->
+    <follow-btn [user]="user" [author]="article.author"></follow-btn>
     <favorite-btn [article]="article">
       {{ article.favorited ? 'Unfavorite' : 'Favorite' }} Article <span class="counter">({{article.favoritesCount}})</span>
     </favorite-btn>

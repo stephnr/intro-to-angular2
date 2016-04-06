@@ -7,4 +7,5 @@ interface UserInterface {
   token: string;
   updatedAt: string;
   username: string;
+  following: boolean;
 }
