@@ -9,7 +9,7 @@ import {Router, RouterLink} from 'angular2/router';
 import {ArticleService} from '../common/services/articles.service';
 import {User} from '../auth/components/user';
 import {Article} from './article';
-import {ArticleMeta} from './articleMeta.component';
+import {ArticleMeta} from './articleMeta.component'
 
 /*= End of REQUIRED MODULES =*/
 /*=============================================<<<<<*/

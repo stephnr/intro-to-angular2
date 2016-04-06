@@ -17,6 +17,7 @@ import {Article} from './article';
 
 import {ArticleActions} from './articleActions.component';
 import {FavoriteButton} from '../common/components/favoriteBtn.component';
+import {Comment} from './comment.component';
 
 import {AUTHORIZE_DIRECTIVES} from '../common/directives/isAuthorized.directive';
 
@@ -26,7 +27,7 @@ import {AUTHORIZE_DIRECTIVES} from '../common/directives/isAuthorized.directive'
 @Component({
   selector:    'article',
   templateUrl: 'src/app/article/layout/article.html',
-  directives:  [RouterLink, AUTHORIZE_DIRECTIVES, ArticleActions, FavoriteButton],
+  directives:  [RouterLink, AUTHORIZE_DIRECTIVES, ArticleActions, FavoriteButton, Comment],
   providers:   [ArticleService, UserService, CommentService]
 })
 export class ArticleComponent implements OnInit, OnDestroy {
@@ -77,10 +78,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteComment(commentId: number, index: number) {
-    this._commentService.destroy(commentId, this.article.slug).then(
+  deleteComment($event: any) {
+    this._commentService.destroy($event.commentId, this._routeParams.params['slug']).then(
       (success) => {
-        this.comments.splice(index, 1);
+        this.comments.splice($event.index, 1);
       }
     );
   }

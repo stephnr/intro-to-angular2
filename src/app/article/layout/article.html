@@ -62,10 +62,12 @@
           <a [routerLink]="['Login']">Sign in</a> or <a [routerLink]="['Register']">sign up</a> to add comments on this article.
         </p>
 
-        <!-- <comment *ngFor="#comment of comments; #idx = index"
+        <comment *ngFor="#comment of comments; #idx = index"
           [comment]="comment"
-          (delete)="deleteComment(comment.id, idx)">
-        </comment> -->
+					[user]="user"
+					[index]="idx"
+          (delete)="deleteComment($event)">
+        </comment>
 
       </div>
 
