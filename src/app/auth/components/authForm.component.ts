@@ -1,5 +1,9 @@
 /// <reference path="./definitions/user.d.ts"/>
 
+/*=============================================>>>>>
+= REQUIRED MODULES =
+===============================================>>>>>*/
+
 import {FORM_DIRECTIVES, ControlGroup, Control} from 'angular2/common';
 import {Component, Input, OnInit, OnDestroy} from 'angular2/core';
 import {Router} from 'angular2/router';
@@ -8,6 +12,9 @@ import {Subscription} from 'rxjs/Subscription';
 
 import {ListErrorsComponent} from '../../common/components/listErrors.component';
 import {UserService} from '../../common/services/user.service';
+
+/*= End of REQUIRED MODULES =*/
+/*=============================================<<<<<*/
 
 @Component({
   selector:    'auth-form',

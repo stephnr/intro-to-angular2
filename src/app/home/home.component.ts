@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
   public appName: string;
   public listConfig: any;
   public limit: number;
+  public loading: boolean;
 
   public userSubscription: Subscription;
   public tagsSubscription: Subscription;
@@ -52,6 +53,7 @@ export class HomeComponent implements OnInit {
   constructor(private _router: Router, private _routeParams: RouteParams, private _userService: UserService, private _tagsService: TagsService, private _articleService: ArticleService) {
     this.userSubscription = this._userService.userAnnounced$.subscribe(
       (user: User) => {
+        this.loading = false;
         this.user = user;
         this.listConfig.type = 'feed';
         this.runQuery();

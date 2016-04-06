@@ -20,9 +20,13 @@
   ],
   "files": [
     "src/app/app.component.ts",
+    "src/app/article/article.component.ts",
+    "src/app/article/article.ts",
     "src/app/article/articleList.component.ts",
     "src/app/article/articleMeta.component.ts",
     "src/app/article/articlePreview.component.ts",
+    "src/app/article/definitions/article.d.ts",
+    "src/app/article/listPagination.component.ts",
     "src/app/auth/components/authForm.component.ts",
     "src/app/auth/components/definitions/user.d.ts",
     "src/app/auth/components/login.component.ts",

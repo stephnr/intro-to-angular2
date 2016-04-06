@@ -43,7 +43,12 @@
         </div>
 
         <!-- List the current articles -->
-        <article-list [limit]="limit" [listConfig]="listConfig" [articles]="articles"></article-list>
+        <article-list
+          [loading]="loading"
+          [limit]="limit"
+          [listConfig]="listConfig"
+          [articles]="articles">
+        </article-list>
 
       </div>
 

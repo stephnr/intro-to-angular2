@@ -27,6 +27,7 @@ import {ConduitRouterOutlet} from './common/components/conduitRouterOutlet.compo
 import {AppHeader} from './common/components/appHeader.component';
 import {AppFooter} from './common/components/appFooter.component';
 
+import { ArticleComponent } from './article/article.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/components/login.component';
 import { RegisterComponent } from './auth/components/register.component';
@@ -51,8 +52,8 @@ import { ProfileFavoritesComponent } from './profile/profileFavorites.component'
   { path: '/register', name: 'Register', component: RegisterComponent  },
   { path: '/settings', name: 'Settings', component: SettingsComponent  },
   { path: '/editor', name: 'Editor', component: EditorComponent  },
-  // { path: '/editor/:articleId', name: 'Edit-Article', component: EditArticleComponent  },
-  // { path: '/article/:articleId', name: 'View-Article', component: ArticleComponent  },
+  // { path: '/editor/:slug', name: 'Edit-Article', component: EditArticleComponent  },
+  { path: '/article/:slug', name: 'View-Article', component: ArticleComponent  },
   { path: '/@/:username', name: 'Profile', component: ProfileComponent  },
   { path: '/@/:username/favorites', name: 'ProfileFavorites', component: ProfileFavoritesComponent  }
 ])

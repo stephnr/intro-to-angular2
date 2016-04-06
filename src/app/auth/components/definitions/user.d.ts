@@ -1,4 +1,4 @@
-interface User {
+interface UserInterface {
   bio: string;
   createdAt: string;
   email: string;

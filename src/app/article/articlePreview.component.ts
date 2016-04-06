@@ -3,6 +3,7 @@
 ===============================================>>>>>*/
 
 import {Component, Input} from 'angular2/core';
+import {RouterLink} from 'angular2/router';
 
 import {ArticleMeta} from './articleMeta.component';
 
@@ -12,7 +13,7 @@ import {ArticleMeta} from './articleMeta.component';
 @Component({
   selector:    'article-preview',
   templateUrl: 'src/app/article/layout/articlePreview.html',
-  directives:  [ArticleMeta]
+  directives:  [RouterLink, ArticleMeta]
 })
 export class ArticlePreview {
   @Input() article: Object;

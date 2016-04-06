@@ -1,6 +1,6 @@
 /// <reference path="./definitions/user.d.ts"/>
 
-export class User implements User {
+export class User implements UserInterface {
   bio: string;
   createdAt: string;
   email: string;

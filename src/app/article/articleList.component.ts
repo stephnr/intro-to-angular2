@@ -10,6 +10,7 @@ import {Subscription} from 'rxjs/Subscription';
 /*----------- COMPONENTS -----------*/
 
 import {ArticlePreview} from './articlePreview.component';
+import {ListPagination} from './listPagination.component';
 
 /*= End of REQUIRED MODULES =*/
 /*=============================================<<<<<*/
@@ -17,10 +18,19 @@ import {ArticlePreview} from './articlePreview.component';
 @Component({
   selector:    'article-list',
   templateUrl: 'src/app/article/layout/articleList.html',
-  directives:  [ArticlePreview]
+  directives:  [ArticlePreview, ListPagination]
 })
 export class ArticleList {
   @Input() limit: number;
-  @Input() listConfig: any;
-  @Input() articles: any;
+  @Input() listConfig: Object;
+  @Input() articles: Array<Object>;
+  @Input() loading: boolean;
+
+  constructor() {
+    this.articles = [];
+  }
+
+  articlesExist() {
+    return this.articles ? this.articles.length : false;
+  }
 }

@@ -1,0 +1,76 @@
+<div class="article-page">
+
+  <!-- Banner for article title, action buttons -->
+  <div class="banner">
+    <div class="container">
+
+      <h1>{{ article.title }}</h1>
+      <!-- <article-actions article="$ctrl.article"></article-actions> -->
+
+    </div>
+  </div>
+
+  <!-- Main view. Contains article html and comments -->
+  <div class="container page">
+
+    <!-- Article's HTML & tags rendered here -->
+    <div class="row article-content">
+      <div class="col-xs-12">
+
+        <div>{{ article.body }}</div>
+
+        <ul class="tag-list">
+          <li class="tag-default tag-pill tag-outline"
+						*ngFor="#tag of article.tagList">
+            {{ tag }}
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="article-actions">
+      <!-- <article-actions article="$ctrl.article"></article-actions> -->
+    </div>
+
+    <!-- Comments section -->
+    <div class="row">
+      <div class="col-xs-12 col-md-8 offset-md-2">
+
+        <div showAuthorized>
+          <!-- <list-errors from="$ctrl.commentForm.errors"></list-errors> -->
+          <form class="card comment-form" [ngFormModel]="commentForm" (ngSubmit)="addComment()">
+            <div class="card-block">
+              <textarea class="form-control"
+                placeholder="Write a comment..."
+                rows="3"
+								ngControl="body" required>
+              </textarea>
+            </div>
+            <div class="card-footer">
+              <img *ngIf="imageExists()" [src]="user.image" class="comment-author-img" />
+              <button class="btn btn-sm btn-primary" type="submit">
+               Post Comment
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <p showUnAuthorized>
+          <a [routerLink]="['Login']">Sign in</a> or <a [routerLink]="['Register']">sign up</a> to add comments on this article.
+        </p>
+
+        <!-- <comment ng-repeat="cmt in $ctrl.comments"
+          data="cmt"
+          delete-cb="$ctrl.deleteComment(cmt.id, $index)">
+        </comment> -->
+
+      </div>
+
+	  </div>
+
+  </div>
+
+</div>

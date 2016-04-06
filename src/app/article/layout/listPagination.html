@@ -1,0 +1,14 @@
+<nav>
+  <ul class="pagination">
+
+    <li class="page-item"
+			[ngClass]="{'active': pageNumber === listConfig.currentPage}"
+			*ngFor="#pageNumber of pageRange(listConfig.totalPages)"
+      (click)="changePage(pageNumber)">
+
+      <a class="page-link" href="#">{{ pageNumber }}</a>
+
+    </li>
+
+  </ul>
+</nav>
