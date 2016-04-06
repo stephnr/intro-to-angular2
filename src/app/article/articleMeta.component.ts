@@ -20,6 +20,6 @@ export class ArticleMeta {
   @Input() article: Object;
 
   buildDate(date: string) {
-    return new Date(date);
+    return date.length > 0 ? new Date(date) : new Date();
   }
 }

@@ -10,9 +10,13 @@ import {Subscription} from 'rxjs/Subscription';
 
 import {ArticleService} from '../common/services/articles.service';
 import {UserService} from '../common/services/user.service';
+import {CommentService} from '../common/services/comments.service';
 
 import {User} from '../auth/components/user';
 import {Article} from './article';
+
+import {ArticleActions} from './articleActions.component';
+import {FavoriteButton} from '../common/components/favoriteBtn.component';
 
 import {AUTHORIZE_DIRECTIVES} from '../common/directives/isAuthorized.directive';
 
@@ -22,17 +26,19 @@ import {AUTHORIZE_DIRECTIVES} from '../common/directives/isAuthorized.directive'
 @Component({
   selector:    'article',
   templateUrl: 'src/app/article/layout/article.html',
-  directives:  [RouterLink, AUTHORIZE_DIRECTIVES],
-  providers:   [ArticleService, UserService]
+  directives:  [RouterLink, AUTHORIZE_DIRECTIVES, ArticleActions, FavoriteButton],
+  providers:   [ArticleService, UserService, CommentService]
 })
 export class ArticleComponent implements OnInit, OnDestroy {
   public article: Article;
+  public comments: Array<any>;
   public commentForm: any;
   public user: any;
+  public errors: any;
 
   private _userSubscription: Subscription;
 
-  constructor(private _router: Router, private _routeParams: RouteParams, private _articleService: ArticleService, private _userService: UserService) {
+  constructor(private _router: Router, private _routeParams: RouteParams, private _articleService: ArticleService, private _userService: UserService, private _commentService: CommentService) {
     this.article = new Article();
     this.commentForm = new ControlGroup({
       body: new Control('')
@@ -41,12 +47,16 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
     this._articleService.get(this._routeParams.params['slug']).then((res: any) => {
       this.article = res.json().article;
+
+      // Load comments
+      this._commentService.getAll(this.article.slug).then(
+        (res: any) => this.comments = res.json().comments
+      );
     });
 
     this._userSubscription = this._userService.userAnnounced$.subscribe(
       user => {
         this.user = user;
-        console.log(this.user);
       }
     );
   }
@@ -56,7 +66,23 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   addComment() {
-    console.log(this.commentForm);
+    this._commentService.add(this.article.slug, this.commentForm.value.body).then(
+      (comment: any) => {
+        this.comments.unshift(comment);
+      }
+    ).catch(
+      (err: any) => {
+        this.errors = err.json().errors;
+      }
+    );
+  }
+
+  deleteComment(commentId: number, index: number) {
+    this._commentService.destroy(commentId, this.article.slug).then(
+      (success) => {
+        this.comments.splice(index, 1);
+      }
+    );
   }
 
   ngOnInit() {

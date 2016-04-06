@@ -5,7 +5,7 @@
     <div class="container">
 
       <h1>{{ article.title }}</h1>
-      <!-- <article-actions article="$ctrl.article"></article-actions> -->
+      <article-actions [user]="user" [article]="article"></article-actions>
 
     </div>
   </div>
@@ -32,7 +32,7 @@
     <hr />
 
     <div class="article-actions">
-      <!-- <article-actions article="$ctrl.article"></article-actions> -->
+      <article-actions [user]="user" [article]="article"></article-actions>
     </div>
 
     <!-- Comments section -->
@@ -62,9 +62,9 @@
           <a [routerLink]="['Login']">Sign in</a> or <a [routerLink]="['Register']">sign up</a> to add comments on this article.
         </p>
 
-        <!-- <comment ng-repeat="cmt in $ctrl.comments"
-          data="cmt"
-          delete-cb="$ctrl.deleteComment(cmt.id, $index)">
+        <!-- <comment *ngFor="#comment of comments; #idx = index"
+          [comment]="comment"
+          (delete)="deleteComment(comment.id, idx)">
         </comment> -->
 
       </div>
