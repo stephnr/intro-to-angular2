@@ -15,6 +15,7 @@ import {CommentService} from '../common/services/comments.service';
 import {User} from '../auth/components/user';
 import {Article} from './article';
 
+import {ListErrorsComponent} from '../common/components/listErrors.component';
 import {ArticleActions} from './articleActions.component';
 import {FavoriteButton} from '../common/components/favoriteBtn.component';
 import {Comment} from './comment.component';
@@ -27,7 +28,7 @@ import {AUTHORIZE_DIRECTIVES} from '../common/directives/isAuthorized.directive'
 @Component({
   selector:    'article',
   templateUrl: 'src/app/article/layout/article.html',
-  directives:  [RouterLink, AUTHORIZE_DIRECTIVES, ArticleActions, FavoriteButton, Comment],
+  directives:  [RouterLink, AUTHORIZE_DIRECTIVES, ArticleActions, Comment, FavoriteButton, ListErrorsComponent],
   providers:   [ArticleService, UserService, CommentService]
 })
 export class ArticleComponent implements OnInit, OnDestroy {
@@ -40,11 +41,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   private _userSubscription: Subscription;
 
   constructor(private _router: Router, private _routeParams: RouteParams, private _articleService: ArticleService, private _userService: UserService, private _commentService: CommentService) {
-    this.article = new Article();
-    this.commentForm = new ControlGroup({
-      body: new Control('')
-    });
-    this.user = new User();
+    this._resetVars();
 
     this._articleService.get(this._routeParams.params['slug']).then((res: any) => {
       this.article = res.json().article;
@@ -84,6 +81,15 @@ export class ArticleComponent implements OnInit, OnDestroy {
         this.comments.splice($event.index, 1);
       }
     );
+  }
+
+  private _resetVars() {
+    this.errors = {};
+    this.article = new Article();
+    this.commentForm = new ControlGroup({
+      body: new Control('')
+    });
+    this.user = new User();
   }
 
   ngOnInit() {

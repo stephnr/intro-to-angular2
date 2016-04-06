@@ -40,7 +40,7 @@
       <div class="col-xs-12 col-md-8 offset-md-2">
 
         <div showAuthorized>
-          <!-- <list-errors from="$ctrl.commentForm.errors"></list-errors> -->
+          <list-errors [errors]="errors"></list-errors>
           <form class="card comment-form" [ngFormModel]="commentForm" (ngSubmit)="addComment()">
             <div class="card-block">
               <textarea class="form-control"

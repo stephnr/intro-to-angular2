@@ -52,7 +52,7 @@ import { ProfileFavoritesComponent } from './profile/profileFavorites.component'
   { path: '/register', name: 'Register', component: RegisterComponent  },
   { path: '/settings', name: 'Settings', component: SettingsComponent  },
   { path: '/editor', name: 'Editor', component: EditorComponent  },
-  // { path: '/editor/:slug', name: 'Edit-Article', component: EditArticleComponent  },
+  { path: '/editor/:slug', name: 'Edit-Article', component: EditorComponent  },
   { path: '/article/:slug', name: 'View-Article', component: ArticleComponent  },
   { path: '/@/:username', name: 'Profile', component: ProfileComponent  },
   { path: '/@/:username/favorites', name: 'ProfileFavorites', component: ProfileFavoritesComponent  }

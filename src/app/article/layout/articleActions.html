@@ -3,9 +3,8 @@
   <!-- If current user is the author, show edit/delete buttons -->
   <span *ngIf="canModify">
 
-    <!-- <a class="btn btn-outline-secondary btn-sm"
-    			[routerLink]="['Editor', { slug: article.slug }]"> -->
-		<a class="btn btn-outline-secondary btn-sm">
+    <a class="btn btn-outline-secondary btn-sm"
+    			[routerLink]="['Edit-Article', { slug: article.slug }]">
       <i class="ion-edit"></i> Edit Article
     </a>
 

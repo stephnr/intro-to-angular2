@@ -3,10 +3,13 @@
 ===============================================>>>>>*/
 
 import {NgIf} from 'angular2/common';
-import {Component, Input} from 'angular2/core';
+import {Component, Input, OnInit, OnDestroy} from 'angular2/core';
 import {Router, RouterLink} from 'angular2/router';
 
+import {Subscription} from 'rxjs/Subscription';
+
 import {ArticleService} from '../common/services/articles.service';
+import {UserService} from '../common/services/user.service';
 
 import {User} from '../auth/components/user';
 import {Article} from './article';
@@ -21,24 +24,25 @@ import {FollowBtn} from '../common/components/followBtn.component';
 @Component({
   selector:    'article-actions',
   templateUrl: 'src/app/article/layout/articleActions.html',
-  providers:   [ArticleService],
-  directives:  [NgIf, ArticleMeta, FavoriteButton, FollowBtn]
+  providers:   [ArticleService, UserService],
+  directives:  [NgIf, RouterLink, ArticleMeta, FavoriteButton, FollowBtn]
 })
-export class ArticleActions {
+export class ArticleActions implements OnInit, OnDestroy {
   public canModify: boolean;
   public isDeleting: boolean;
 
   @Input() article: Article;
   @Input() user: User;
 
-  constructor(private _router: Router, private _articleService: ArticleService) {
-    if(this.article === undefined) this.article = new Article();
+  private _userSubscription: Subscription;
 
-    if(this.user) {
-      this.canModify = (this.user.username === this.article.author.username);
-    } else {
-      this.canModify = false;
-    }
+  constructor(private _router: Router, private _articleService: ArticleService, private _userService: UserService) {
+    this._userSubscription = this._userService.userAnnounced$.subscribe(
+      user => {
+        this.user = user;
+        this.canModify = (this.user.username === this.article.author.username);
+      }
+    );
   }
 
   deleteArticle() {
@@ -48,5 +52,15 @@ export class ArticleActions {
     ).catch(
       (err) => this._router.navigate(['Home'])
     );
+  }
+
+  ngOnInit() {
+    if(this.article === undefined) this.article = new Article();
+    this.canModify = false;
+    this._userService.getUser();
+  }
+
+  ngOnDestroy() {
+    this._userSubscription.unsubscribe();
   }
 }

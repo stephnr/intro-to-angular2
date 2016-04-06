@@ -48,7 +48,7 @@ export class ArticleService {
 
   // Creates or updates an article
   save(article: any) {
-    let request = { url: '', method: '', body: '' };
+    let request = new RequestOptions({ headers: this._buildAuthHeaders() });
 
     // If there's a slug, perform an update via PUT w/ article's slug
     if (article.slug) {
@@ -71,7 +71,8 @@ export class ArticleService {
 
   // Delete an article
   destroy(slug: string) {
-    return this.http.delete(`${APP_CONSTANTS.api}/${this._articlesURL}/${slug}`).toPromise();
+    let options = new RequestOptions({ headers: this._buildAuthHeaders() });
+    return this.http.delete(`${APP_CONSTANTS.api}/${this._articlesURL}/${slug}`, options).toPromise();
   }
 
   // Retrieve a single article

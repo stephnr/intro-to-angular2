@@ -23,10 +23,10 @@ import {UserService} from '../../common/services/user.service';
   providers:   [UserService]
 })
 export class AuthFormComponent implements OnInit, OnDestroy {
-  formData: Object;
-  errors: Object;
+  public formData: ControlGroup;
+  public errors: Object;
 
-  subscription: Subscription;
+  public subscription: Subscription;
 
   @Input() authType: string;
   @Input() submitTitle: string;
