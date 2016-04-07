@@ -25,6 +25,8 @@ export class FollowBtn {
 
   constructor(private _router: Router, private _profileService: ProfileService) {
     this.isSubmitting = false;
+    this.author = new User();
+    this.user = new User();
   }
 
   submit() {

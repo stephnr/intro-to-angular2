@@ -16,7 +16,7 @@ export class User implements UserInterface {
     this.createdAt = '';
     this.email = '';
     this.id = 0;
-    this.image = '';
+    this.image = 'https://static.productionready.io/images/smiley-cyrus.jpg';
     this.token = '';
     this.updatedAt = '';
     this.username = '';

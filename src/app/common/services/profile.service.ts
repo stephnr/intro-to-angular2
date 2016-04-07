@@ -31,7 +31,7 @@ export class ProfileService {
 
   // Retrieve a user's profile
   get(username: string) {
-    return this.http.get(`${APP_CONSTANTS.api}/${this._profileURL}/${username}/follow`, this._buildAuthHeaders()).toPromise();
+    return this.http.get(`${APP_CONSTANTS.api}/${this._profileURL}/${username}`, this._buildAuthHeaders()).toPromise();
   }
 
   // Follow a user

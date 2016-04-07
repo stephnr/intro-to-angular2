@@ -31,7 +31,7 @@ export class UserService implements UserServiceInterface {
   }
 
   update(fields: any) {
-    return this.http.put(`${APP_CONSTANTS.api}/user`, JSON.stringify({ user: fields }))
+    return this.http.put(`${APP_CONSTANTS.api}/user`, JSON.stringify({ user: fields }), this._buildAuthHeaders())
     .toPromise().then(res => {
       this.announcedUserUpdate(res.json().user);
     }).catch(err => {

@@ -1,0 +1,69 @@
+<div class="profile-page">
+
+  <!-- User's basic info & action buttons -->
+  <div class="user-info">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-10 offset-md-1">
+
+          <img [src]="user.image" class="user-img" />
+          <h4>{{ user.username }}</h4>
+          <p>{{ user.bio }}</p>
+					<!-- Show if not the current users profile page -->
+					<follow-btn *ngIf="!isUser" [user]="user" [author]="user"></follow-btn>
+					<!-- Show if current user -->
+          <a [routerLink]="['Settings']"
+            class="btn btn-sm btn-outline-secondary action-btn"
+            *ngIf="isUser">
+            <i class="ion-gear-a"></i> Edit Profile Settings
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Container where User's posts & favs are list w/ toggle tabs -->
+  <div class="container">
+    <div class="row">
+
+      <div class="col-xs-12 col-md-10 offset-md-1">
+
+        <!-- Tabs for switching between author articles & favorites -->
+        <div class="articles-toggle">
+          <ul class="nav nav-pills outline-active">
+
+            <li class="nav-item">
+              <a class="nav-link"
+								[ngClass]="{ active: !loadedFavorites }"
+                (click)="loadArticles()">
+                My Articles
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link"
+								[ngClass]="{ active: loadedFavorites }"
+                (click)="loadFavorites()">
+                Favorited Articles
+              </a>
+            </li>
+
+          </ul>
+        </div>
+
+        <!-- View where profile-articles renders to -->
+				<article-list
+          [loading]="loading"
+          [limit]="5"
+          [listConfig]="listConfig"
+          [articles]="articles">
+        </article-list>
+
+      </div>
+
+    <!-- End row & container divs -->
+    </div>
+  </div>
+
+</div>

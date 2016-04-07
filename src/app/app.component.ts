@@ -45,17 +45,14 @@ import { ProfileFavoritesComponent } from './profile/profileFavorites.component'
   directives: [ROUTER_DIRECTIVES, ConduitRouterOutlet, AppHeader, AppFooter]
 })
 @RouteConfig([
-
   { path: '/home', name: 'Home', component: HomeComponent, useAsDefault: true },
   { path: '/login', name: 'Login', component: LoginComponent  },
-  // { path: '/logout', name: 'Logout', component: LogoutComponent  },
   { path: '/register', name: 'Register', component: RegisterComponent  },
   { path: '/settings', name: 'Settings', component: SettingsComponent  },
   { path: '/editor', name: 'Editor', component: EditorComponent  },
   { path: '/editor/:slug', name: 'Edit-Article', component: EditorComponent  },
   { path: '/article/:slug', name: 'View-Article', component: ArticleComponent  },
-  { path: '/@/:username', name: 'Profile', component: ProfileComponent  },
-  { path: '/@/:username/favorites', name: 'ProfileFavorites', component: ProfileFavoritesComponent  }
+  { path: '/@/:username', name: 'Profile', component: ProfileComponent  }
 ])
 export class AppComponent {
   constructor(private _router: Router, title: Title, private SiteTitleService: SiteTitleService) {

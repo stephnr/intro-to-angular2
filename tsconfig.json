@@ -42,7 +42,6 @@
     "src/app/common/constants/app.constants.ts",
     "src/app/common/constants/definitions/app.d.ts",
     "src/app/common/constants/definitions/siteTitles.d.ts",
-    "src/app/common/constants/siteTitles.constants.ts",
     "src/app/common/directives/isAuthorized.directive.ts",
     "src/app/common/services/articles.service.ts",
     "src/app/common/services/comments.service.ts",
@@ -57,7 +56,6 @@
     "src/app/home/home.component.ts",
     "src/app/main.ts",
     "src/app/profile/profile.component.ts",
-    "src/app/profile/profileFavorites.component.ts",
     "src/app/settings/settings.component.ts"
   ],
   "atom": {

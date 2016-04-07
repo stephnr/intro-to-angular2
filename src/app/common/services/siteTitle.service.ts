@@ -1,10 +1,19 @@
+/*=============================================>>>>>
+= REQUIRED MODULES =
+===============================================>>>>>*/
+
 import {Injectable} from 'angular2/core';
-import {TITLES} from '../constants/siteTitles.constants';
+
+/*= End of REQUIRED MODULES =*/
+/*=============================================<<<<<*/
 
 @Injectable()
 export class SiteTitleService {
+  capitalize(url: string) {
+    return `${url.charAt(0).toUpperCase()}${url.slice(1)}`;
+  }
+
   getSiteTitle(url: string) {
-    if(url === '') return TITLES['default'];
-    else { return TITLES[url]; };
+    return this.capitalize(url.replace(/\/$/g, ''));
   }
 }

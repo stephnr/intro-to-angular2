@@ -36,19 +36,19 @@ export class ArticleService {
 
   // Favorite an article
   favorite(slug: string) {
-    let options = new RequestOptions({ headers: this._buildAuthHeaders() });
+    let options = new RequestOptions({ headers: this._buildHeaders() });
     return this.http.post(`${APP_CONSTANTS.api}/${this._articlesURL}/${slug}/favorite`, '', options).toPromise();
   }
 
   // Unfavorite an article
   unfavorite(slug: string) {
-    let options = new RequestOptions({ headers: this._buildAuthHeaders() });
+    let options = new RequestOptions({ headers: this._buildHeaders() });
     return this.http.delete(`${APP_CONSTANTS.api}/${this._articlesURL}/${slug}/favorite`, options).toPromise();
   }
 
   // Creates or updates an article
   save(article: any) {
-    let request = new RequestOptions({ headers: this._buildAuthHeaders() });
+    let request = new RequestOptions({ headers: this._buildHeaders() });
 
     // If there's a slug, perform an update via PUT w/ article's slug
     if (article.slug) {
@@ -71,7 +71,7 @@ export class ArticleService {
 
   // Delete an article
   destroy(slug: string) {
-    let options = new RequestOptions({ headers: this._buildAuthHeaders() });
+    let options = new RequestOptions({ headers: this._buildHeaders() });
     return this.http.delete(`${APP_CONSTANTS.api}/${this._articlesURL}/${slug}`, options).toPromise();
   }
 
@@ -95,10 +95,12 @@ export class ArticleService {
       url:    `${APP_CONSTANTS.api}/${this._articlesURL}/${((config.type === 'feed') ? '/feed' : '')}`,
       method: 'GET',
       search:  new URLSearchParams(),
-      headers: this._buildAuthHeaders()
+      headers: this._buildHeaders()
     });
 
     if(config.filters) {
+      if(config.filters.author) options.search.set('author', config.filters.author);
+      if(config.filters.favorited) options.search.set('favorited', config.filters.favorited || null);
       options.search.set('limit', config.limit || 10);
       options.search.set('offset', config.offset || 0);
     }
@@ -115,8 +117,11 @@ export class ArticleService {
     this._articles.next(articles);
   }
 
-  private _buildAuthHeaders() {
-    let headers = new Headers({ 'Content-Type': 'application/json', 'authorization': `Token ${this._jWTService.get()}` });
-    return headers;
+  private _buildHeaders() {
+    if(this._jWTService.exists()) {
+      return (new Headers({ 'Content-Type': 'application/json', 'authorization': `Token ${this._jWTService.get()}` }));
+    } else {
+      return (new Headers({ 'Content-Type': 'application/json' }));
+    }
   }
 }
