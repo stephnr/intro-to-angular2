@@ -23,6 +23,7 @@ import {UserService} from '../../common/services/user.service';
   providers:   [UserService]
 })
 export class AuthFormComponent implements OnInit, OnDestroy {
+  public isSubmitting: boolean;
   public formData: ControlGroup;
   public errors: Object;
 
@@ -32,6 +33,7 @@ export class AuthFormComponent implements OnInit, OnDestroy {
   @Input() submitTitle: string;
 
   constructor(private _userService: UserService, private _router: Router) {
+    this.isSubmitting = false;
     this.formData = new ControlGroup({
       username: new Control(''),
       email:    new Control(''),
@@ -48,9 +50,14 @@ export class AuthFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.isSubmitting = true;
     this._userService.attemptAuth(this.authType, JSON.stringify({
       user: this.formData['value']
-    }));
+    })).then(() => {
+      this.isSubmitting = false;
+    }).catch(() => {
+      this.isSubmitting = false;
+    });
   }
 
   ngOnInit() {

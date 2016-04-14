@@ -5,6 +5,7 @@
 
 		<fieldset class="form-group" *ngIf="authType === 'register'">
 			<input class="form-control form-control-lg"
+				[disabled]="isSubmitting"
 				type="text"
 				placeholder="Username"
 				ngControl="username" />
@@ -12,6 +13,7 @@
 
 		<fieldset class="form-group">
 			<input class="form-control form-control-lg"
+				[disabled]="isSubmitting"
 				type="email"
 				placeholder="Email"
 				ngControl="email"/>
@@ -19,12 +21,14 @@
 
 		<fieldset class="form-group">
 			<input class="form-control form-control-lg"
+				[disabled]="isSubmitting"
 				type="password"
 				placeholder="Password"
 				ngControl="password"/>
 		</fieldset>
 
 		<button class="btn btn-lg btn-primary pull-xs-right"
+			[disabled]="isSubmitting"
 			type="submit" (ngSubmit)="onSubmit()">
 			{{ submitTitle }}
 		</button>
