@@ -59,7 +59,7 @@
           <p>Popular Tags</p>
 
           <div class="tag-list" *ngIf="tags">
-            <a href="" class="tag-default tag-pill"
+            <a href="#" class="tag-default tag-pill"
               (click)="changeList({ type: 'all', filters: {tag: tagName} })"
               *ngFor="#tagName of tags">
               {{ tagName }}
