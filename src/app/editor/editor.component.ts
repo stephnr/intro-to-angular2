@@ -20,6 +20,7 @@ import {ArticleService} from '../common/services/articles.service';
 
 })
 export class EditorComponent {
+  public editMode: boolean;
   public isSubmitting: boolean;
   public article: ControlGroup;
   public errors: any;
@@ -37,6 +38,7 @@ export class EditorComponent {
     });
 
     if(this._routeParams.params['slug'] !== undefined) {
+      this.editMode = true;
       // Load the existing article
       this._articleService.get(this._routeParams.params['slug']).then(
         (res) => {
@@ -70,7 +72,14 @@ export class EditorComponent {
 
   submit() {
     this.isSubmitting = true;
+    let article = this.article.value;
 
+    if(this.editMode) {
+      // Update the Article
+      article.slug = this._routeParams.params['slug'];
+    }
+
+    // Save the post
     this._articleService.save(this.article.value).then(
       (res: any) => {
         this._router.navigate(['View-Article', { slug: res.json().article.slug }]);
