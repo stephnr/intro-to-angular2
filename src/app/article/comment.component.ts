@@ -2,6 +2,8 @@
 = REQUIRED MODULES =
 ===============================================>>>>>*/
 
+import {isBlank} from 'angular2/src/facade/lang';
+
 import {NgIf} from 'angular2/common';
 import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {Router, RouterLink} from 'angular2/router';
@@ -28,7 +30,11 @@ export class Comment {
   constructor(private _router: Router, private _commentService: CommentService) {}
 
   imageExists() {
-    return this.comment.author.image ? this.comment.author.image.length > 0 : false;
+    if(!isBlank(this.comment.author)) {
+      return this.comment.author.image ? this.comment.author.image.length > 0 : false;
+    } else {
+      return false;
+    }
   }
 
   buildDate(date: string) {

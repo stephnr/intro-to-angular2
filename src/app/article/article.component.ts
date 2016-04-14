@@ -35,10 +35,12 @@ export class ArticleComponent implements OnInit, OnDestroy {
   public commentForm: any;
   public user: any;
   public errors: any;
+  public isSubmitting: boolean;
 
   private _userSubscription: Subscription;
 
   constructor(private _router: Router, private _routeParams: RouteParams, private _articleService: ArticleService, private _userService: UserService, private _commentService: CommentService) {
+    this.isSubmitting = false;
     this._resetVars();
 
     this._articleService.get(this._routeParams.params['slug']).then((res: any) => {
@@ -66,12 +68,16 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   addComment() {
+    this.isSubmitting = true;
+
     this._commentService.add(this.article.slug, this.commentForm.value.body).then(
       (comment: any) => {
-        this.comments.unshift(comment);
+        this.isSubmitting = false;
+        this.comments.unshift(comment.json().comment);
       }
     ).catch(
       (err: any) => {
+        this.isSubmitting = false;
         this.errors = err.json().errors;
       }
     );
