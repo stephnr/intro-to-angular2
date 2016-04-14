@@ -31,7 +31,7 @@ export class ProfileService {
 
   // Retrieve a user's profile
   get(username: string) {
-    return this.http.get(`${APP_CONSTANTS.api}/${this._profileURL}/${username}`, this._buildAuthHeaders()).toPromise();
+    return this.http.get(`${APP_CONSTANTS.api}/${this._profileURL}/${username}`, this._buildSimpleHeaders()).toPromise();
   }
 
   // Follow a user
@@ -49,6 +49,11 @@ export class ProfileService {
 
   private _buildAuthHeaders() {
     let headers = new Headers({ 'Content-Type': 'application/json', 'authorization': `Token ${this._jWTService.get()}` });
+    return (new RequestOptions({ headers: headers }));
+  }
+
+  private _buildSimpleHeaders() {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
     return (new RequestOptions({ headers: headers }));
   }
 }
