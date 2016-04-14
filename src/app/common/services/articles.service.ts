@@ -100,7 +100,8 @@ export class ArticleService {
 
     if(config.filters) {
       if(config.filters.author) options.search.set('author', config.filters.author);
-      if(config.filters.favorited) options.search.set('favorited', config.filters.favorited || null);
+      if(config.filters.favorited) options.search.set('favorited', config.filters.favorited);
+      if(config.filters.tag) options.search.set('tag', config.filters.tag);
       options.search.set('limit', config.limit || 10);
       options.search.set('offset', config.offset || 0);
     }
