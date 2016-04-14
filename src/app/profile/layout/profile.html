@@ -10,11 +10,11 @@
           <h4>{{ user.username }}</h4>
           <p>{{ user.bio }}</p>
 					<!-- Show if not the current users profile page -->
-					<follow-btn *ngIf="!isUser" [user]="user" [author]="user"></follow-btn>
+					<follow-btn *ngIf="!isLoginUser" [user]="user" [author]="user"></follow-btn>
 					<!-- Show if current user -->
           <a [routerLink]="['Settings']"
             class="btn btn-sm btn-outline-secondary action-btn"
-            *ngIf="isUser">
+            *ngIf="isLoginUser">
             <i class="ion-gear-a"></i> Edit Profile Settings
           </a>
 
