@@ -2,6 +2,8 @@
 = REQUIRED MODULES =
 ===============================================>>>>>*/
 
+declare function marked(input: string): any;
+
 import {FORM_DIRECTIVES, ControlGroup, Control} from 'angular2/common';
 import {Component, OnInit, OnDestroy} from 'angular2/core';
 import {Router, RouteParams, RouterLink} from 'angular2/router';
@@ -45,6 +47,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
     this._articleService.get(this._routeParams.params['slug']).then((res: any) => {
       this.article = res.json().article;
+      // Convert body to markdown
+      this.article.body = marked(this.article.body);
 
       // Load comments
       this._commentService.getAll(this.article.slug).then(
