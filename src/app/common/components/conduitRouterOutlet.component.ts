@@ -16,15 +16,17 @@ export class ConduitRouterOutlet extends RouterOutlet {
     this.publicRoutes = {
       'home': true,
       'login': true,
-      'register': true
+      'register': true,
+      '@': true
     };
   }
 
   activate(nextInstruction: ComponentInstruction) {
-    const url = nextInstruction.urlPath;
+    const url: any = nextInstruction.urlPath.split('/').shift();
     if (!this.publicRoutes[url] && !window.localStorage.getItem(APP_CONSTANTS.jwtKey)) {
       this.parentRouter.navigate(['Login']);
     }
+
     return super.activate(nextInstruction);
   }
 }

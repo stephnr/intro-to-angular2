@@ -20,15 +20,13 @@ import {ArticleActions} from './articleActions.component';
 import {FavoriteButton} from '../common/components/favoriteBtn.component';
 import {Comment} from './comment.component';
 
-import {AUTHORIZE_DIRECTIVES} from '../common/directives/isAuthorized.directive';
-
 /*= End of REQUIRED MODULES =*/
 /*=============================================<<<<<*/
 
 @Component({
   selector:    'article',
   templateUrl: 'src/app/article/layout/article.html',
-  directives:  [RouterLink, AUTHORIZE_DIRECTIVES, ArticleActions, Comment, FavoriteButton, ListErrorsComponent],
+  directives:  [RouterLink, ArticleActions, Comment, FavoriteButton, ListErrorsComponent],
   providers:   [ArticleService, UserService, CommentService]
 })
 export class ArticleComponent implements OnInit, OnDestroy {
@@ -57,6 +55,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
         this.user = user;
       }
     );
+  }
+
+  isAuthorized(condition: boolean) {
+    return !(this._userService.isAuthorized() !== condition);
   }
 
   imageExists() {

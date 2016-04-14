@@ -1,7 +1,7 @@
 <div class="home-page">
 
   <!-- Splash banner that only shows when not logged in -->
-  <div class="banner" showUnAuthorized>
+  <div class="banner" *ngIf="isAuthorized(false)">
     <div class="container">
       <h1 class="logo-font">{{ appName }}</h1>
       <p>A place to share your knowledge.</p>
@@ -17,7 +17,7 @@
         <div class="feed-toggle">
           <ul class="nav nav-pills outline-active">
 
-            <li class="nav-item" showAuthorized>
+            <li class="nav-item" *ngIf="isAuthorized(true)">
               <a href="#" class="nav-link"
                 [ngClass]="{active: listConfig.type === 'feed'}"
                 (click)="changeList({ type: 'feed' })">

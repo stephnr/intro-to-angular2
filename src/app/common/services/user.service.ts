@@ -6,6 +6,7 @@ import {Router} from 'angular2/router';
 
 import {JWTService} from '../../common/services/jwt.service';
 import {UserServiceInterface} from '../../common/services/definitions/user.d.ts';
+import {User} from '../../auth/components/user';
 
 import {APP_CONSTANTS} from '../constants/app.constants';
 

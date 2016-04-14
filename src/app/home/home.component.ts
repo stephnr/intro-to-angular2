@@ -17,10 +17,6 @@ import {User} from '../auth/components/user';
 import {TagsService} from '../common/services/tags.service';
 import {ArticleService} from '../common/services/articles.service';
 
-/*----------- DIRECTIVES -----------*/
-
-import {AUTHORIZE_DIRECTIVES} from '../common/directives/isAuthorized.directive';
-
 /*----------- COMPONENTS -----------*/
 
 import {ArticleList} from '../article/articleList.component';
@@ -31,7 +27,7 @@ import {ArticleList} from '../article/articleList.component';
 @Component({
   selector:    'home',
   templateUrl: 'src/app/home/layout/home.html',
-  directives:  [COMMON_DIRECTIVES, ROUTER_DIRECTIVES, AUTHORIZE_DIRECTIVES, ArticleList],
+  directives:  [COMMON_DIRECTIVES, ROUTER_DIRECTIVES, ArticleList],
   providers:   [UserService, TagsService, ArticleService]
 })
 export class HomeComponent implements OnInit {
@@ -73,6 +69,10 @@ export class HomeComponent implements OnInit {
         this.listConfig.totalPages = Math.ceil(articles.length / this.limit);
       }
     );
+  }
+
+  isAuthorized(condition: boolean) {
+    return !(this._userService.isAuthorized() !== condition);
   }
 
   resetVars() {

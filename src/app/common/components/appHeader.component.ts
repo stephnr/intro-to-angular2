@@ -12,15 +12,13 @@ import {Subscription} from 'rxjs/Subscription';
 import {UserService} from '../services/user.service';
 import {User} from '../../auth/components/user';
 
-import {AUTHORIZE_DIRECTIVES} from '../directives/isAuthorized.directive';
-
 /*= End of REQUIRED MODULES =*/
 /*=============================================<<<<<*/
 
 @Component({
   selector:    'app-header',
   templateUrl: 'src/app/common/components/layout/appHeader.html',
-  directives:  [NgIf, ROUTER_DIRECTIVES, AUTHORIZE_DIRECTIVES],
+  directives:  [NgIf, ROUTER_DIRECTIVES],
   providers:   [UserService]
 })
 export class AppHeader implements OnInit, OnDestroy {
@@ -48,8 +46,8 @@ export class AppHeader implements OnInit, OnDestroy {
     return this._router.hostComponent.name === component;
   }
 
-  isAuthorized() {
-    return this._userService.isAuthorized();
+  isAuthorized(condition: boolean) {
+    return !(this._userService.isAuthorized() !== condition);
   }
 
   imageExists() {

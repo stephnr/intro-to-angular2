@@ -39,7 +39,7 @@
     <div class="row">
       <div class="col-xs-12 col-md-8 offset-md-2">
 
-        <div showAuthorized>
+        <div *ngIf="isAuthorized(true)">
           <list-errors [errors]="errors"></list-errors>
           <form class="card comment-form" [ngFormModel]="commentForm" (ngSubmit)="addComment()">
             <div class="card-block">
@@ -58,7 +58,7 @@
           </form>
         </div>
 
-        <p showUnAuthorized>
+        <p *ngIf="isAuthorized(false)">
           <a [routerLink]="['Login']">Sign in</a> or <a [routerLink]="['Register']">sign up</a> to add comments on this article.
         </p>
 
