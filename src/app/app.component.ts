@@ -34,7 +34,6 @@ import { RegisterComponent } from './auth/components/register.component';
 import { EditorComponent } from './editor/editor.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ProfileFavoritesComponent } from './profile/profileFavorites.component';
 
 /*= End of ROUTE COMPONENTS =*/
 /*=============================================<<<<<*/

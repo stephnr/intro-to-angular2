@@ -3,7 +3,7 @@
     <p class="card-text">{{ comment.body }}</p>
   </div>
   <div class="card-footer">
-    <a href="profile.html" class="comment-author">
+    <a class="comment-author" [routerLink]="['Profile', { username: comment.author.username }]">
       <img *ngIf="imageExists()" [src]="comment.author.image" class="comment-author-img" />
     </a>
     &nbsp;
