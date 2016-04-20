@@ -8,6 +8,7 @@ import {FORM_DIRECTIVES, ControlGroup, Control} from 'angular2/common';
 import {Router, RouteParams} from 'angular2/router';
 
 import {ArticleService} from '../common/services/articles.service';
+import {Article} from '../article/article';
 
 /*= End of REQUIRED MODULES =*/
 /*=============================================<<<<<*/
@@ -20,35 +21,31 @@ import {ArticleService} from '../common/services/articles.service';
 
 })
 export class EditorComponent {
+  public article: any;
   public editMode: boolean;
-  public isSubmitting: boolean;
-  public article: ControlGroup;
   public errors: any;
+  public isSubmitting: boolean;
   public tagList: Array<string>;
 
   constructor(private _router: Router, private _routeParams: RouteParams, private _articleService: ArticleService) {
     this.isSubmitting = false;
-    this.tagList = new Array<string>();
 
-    this.article = new ControlGroup({
-      title: new Control(''),
-      description: new Control(''),
-      body: new Control(''),
-      tagField: new Control('')
-    });
+    this.article = new Article();
+    this.tagList = new Array<string>();
 
     if(this._routeParams.params['slug'] !== undefined) {
       this.editMode = true;
       // Load the existing article
       this._articleService.get(this._routeParams.params['slug']).then(
         (res) => {
+          this.tagList = res.json().article.tagList;
           let a: any = res.json().article;
-          this.article = new ControlGroup({
-            title: new Control(a.title),
-            description: new Control(a.description),
-            body: new Control(a.body),
-            tagField: new Control(a.tagList),
-          });
+          this.article = {
+            title: a.title,
+            description: a.description,
+            body: a.body,
+            tagField: [],
+          };
         }
       );
     }
@@ -57,9 +54,10 @@ export class EditorComponent {
   addTag(keyCode: number) {
     // array includes method
     if(keyCode === 13) {
-      if (!!this.tagList.indexOf(this.article.value.tagField) && !this.isSubmitting) {
-        this.tagList.push(this.article.value.tagField);
-        this.article.controls['tagField'].updateValue('');
+      if (!!this.tagList.indexOf(this.article.tagField) && !this.isSubmitting) {
+        this.tagList.push(this.article.tagField);
+        this.article.tagList = this.tagList;
+        delete this.article.tagField;
       }
     }
   }
@@ -72,15 +70,14 @@ export class EditorComponent {
 
   submit() {
     this.isSubmitting = true;
-    let article = this.article.value;
 
     if(this.editMode) {
       // Update the Article
-      article.slug = this._routeParams.params['slug'];
+      this.article.slug = this._routeParams.params['slug'];
     }
 
     // Save the post
-    this._articleService.save(this.article.value).then(
+    this._articleService.save(this.article).then(
       (res: any) => {
         this._router.navigate(['View-Article', { slug: res.json().article.slug }]);
       },
