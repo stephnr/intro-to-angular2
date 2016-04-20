@@ -3,7 +3,7 @@
 ===============================================>>>>>*/
 
 import {Component, OnInit, OnDestroy} from 'angular2/core';
-import {FORM_DIRECTIVES, ControlGroup, Control} from 'angular2/common';
+import {NgModel, FORM_DIRECTIVES, FormBuilder, AbstractControl, ControlGroup, Control} from 'angular2/common';
 import {Router} from 'angular2/router';
 
 import {Subscription} from 'rxjs/Subscription';
@@ -19,7 +19,7 @@ import {ListErrorsComponent} from '../common/components/listErrors.component';
 @Component({
   selector:    'settings',
   templateUrl: 'src/app/settings/layout/settings.html',
-  directives:  [FORM_DIRECTIVES, ListErrorsComponent],
+  directives:  [FORM_DIRECTIVES, NgModel, ListErrorsComponent],
   providers:   [UserService]
 })
 export class SettingsComponent implements OnInit, OnDestroy {
@@ -32,26 +32,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   constructor(private _router: Router, private _userService: UserService) {
     this.isSubmitting = false;
+    this.user = new User();
     this.errors = {};
-
-    this.formData = new ControlGroup({
-      image: new Control(''),
-      username: new Control(''),
-      bio: new Control(''),
-      email: new Control(''),
-      password: new Control('')
-    });
 
     this.userSubscription = this._userService.userAnnounced$.subscribe(
       (user: any) => {
         this.user = user;
-        this.formData = new ControlGroup({
-          image: new Control(user.image),
-          username: new Control(user.username),
-          bio: new Control(user.bio),
-          email: new Control(user.email),
-          password: new Control('')
-        });
       }
     );
   }
@@ -59,7 +45,13 @@ export class SettingsComponent implements OnInit, OnDestroy {
   submitForm() {
     this.isSubmitting = true;
 
-    this._userService.update(this.formData.value).then(
+    this._userService.update({
+      image: this.user.image,
+      username: this.user.username,
+      bio: this.user.bio,
+      email: this.user.email,
+      password: this.user.password
+    }).then(
       (user) => {
         this.isSubmitting = false;
         this._router.navigate(['Profile', { username: this.user.username }]);

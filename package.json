@@ -23,14 +23,14 @@
   },
   "homepage": "https://github.com/Stephn-R/intro-to-angular2#readme",
   "dependencies": {
-    "angular2": "2.0.0-beta.12",
+    "angular2": "2.0.0-beta.15",
     "conduit-sass": "1.6.0",
     "es6-shim": "0.35.0",
     "marked": "0.3.5",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
     "systemjs": "0.19.24",
-    "zone.js": "0.6.8"
+    "zone.js": "0.6.10"
   },
   "devDependencies": {
     "autoprefixer": "6.3.5",

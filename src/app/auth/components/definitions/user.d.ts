@@ -8,4 +8,5 @@ interface UserInterface {
   updatedAt: string;
   username: string;
   following: boolean;
+  password: string;
 }
