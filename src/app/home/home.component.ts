@@ -92,7 +92,7 @@ export class HomeComponent implements OnInit {
   }
 
   tagFilterExists() {
-    return this.listConfig.filters ? this.listConfig.hasOwnProperty('tag') : false;;
+    return (this.listConfig.filters !== undefined) ? this.listConfig.filters.hasOwnProperty('tag') : false;
   }
 
   runQuery() {
