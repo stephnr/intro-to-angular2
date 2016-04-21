@@ -1,8 +1,8 @@
 <button
   class="btn btn-sm action-btn"
   [ngClass]="{ 'disabled': isSubmitting,
-               'btn-outline-secondary': !user.following,
-               'btn-secondary': user.following }"
+               'btn-outline-secondary': !author.following,
+               'btn-secondary': author.following }"
   (click)="submit()">
   <i class="ion-plus-round"></i>
   &nbsp;

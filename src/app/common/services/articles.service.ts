@@ -77,7 +77,8 @@ export class ArticleService {
 
   // Retrieve a single article
   get(slug: string) {
-    return this.http.get(`${APP_CONSTANTS.api}/${this._articlesURL}/${slug}`).toPromise();
+    let options = new RequestOptions({ headers: this._buildHeaders() });
+    return this.http.get(`${APP_CONSTANTS.api}/${this._articlesURL}/${slug}`, options).toPromise();
   }
 
   /*

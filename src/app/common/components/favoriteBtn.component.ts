@@ -34,19 +34,21 @@ export class FavoriteButton {
     // If fav'd already, unfavorite it
     if (this.article.favorited) {
       this._articleService.unfavorite(this.article.slug).then(
-        () => {
+        (res: any) => {
           this.isSubmitting = false;
           this.article.favorited = false;
           this.article.favoritesCount--;
+          this._articleService.announceArticles(res.json().article);
         }
       )
     // Otherwise, favorite it
     } else {
       this._articleService.favorite(this.article.slug).then(
-        () => {
+        (res: any) => {
           this.isSubmitting = false;
           this.article.favorited = true;
           this.article.favoritesCount++;
+          this._articleService.announceArticles(res.json().article);
         }
       )
     }

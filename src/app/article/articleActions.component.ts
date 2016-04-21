@@ -30,13 +30,15 @@ import {FollowBtn} from '../common/components/followBtn.component';
 export class ArticleActions implements OnInit, OnDestroy {
   public canModify: boolean;
   public isDeleting: boolean;
+  public user: User;
 
   @Input() article: Article;
-  @Input() user: User;
 
   private _userSubscription: Subscription;
 
   constructor(private _router: Router, private _articleService: ArticleService, private _userService: UserService) {
+    this.user = new User();
+
     this._userSubscription = this._userService.userAnnounced$.subscribe(
       user => {
         this.user = user;
