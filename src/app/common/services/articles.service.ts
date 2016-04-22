@@ -23,11 +23,17 @@ export class ArticleService {
 
   private _articlesURL = 'articles';
   private _articles: Subject<Object>;
+  private _listConfig: Subject<Object>;
+
   public articlesAnnounced$: Observable<Object>;
+  public listConfigAnnounced$: Observable<Object>;
 
   constructor(private http: Http, private _jWTService: JWTService) {
     this._articles = new Subject<Object>();
+    this._listConfig = new Subject<Object>();
+
     this.articlesAnnounced$ = this._articles.asObservable();
+    this.listConfigAnnounced$ = this._listConfig.asObservable();
   }
 
   /*=============================================>>>>>
@@ -91,9 +97,11 @@ export class ArticleService {
     }
   */
   query(config: any) {
+    this.announceListConfig(config);
+
     // Create the $http object for this request
     let options = new RequestOptions({
-      url:    `${APP_CONSTANTS.api}/${this._articlesURL}/${((config.type === 'feed') ? '/feed' : '')}`,
+      url:    `${APP_CONSTANTS.api}/${this._articlesURL}/${((config.type === 'feed') ? 'feed' : '')}`,
       method: 'GET',
       search:  new URLSearchParams(),
       headers: this._buildHeaders()
@@ -104,11 +112,11 @@ export class ArticleService {
       if(config.filters.favorited) options.search.set('favorited', config.filters.favorited);
       if(config.filters.tag) options.search.set('tag', config.filters.tag);
       options.search.set('limit', config.limit || 10);
-      options.search.set('offset', config.offset || 0);
+      options.search.set('offset', config.filters.offset || 0);
     }
 
     return this.http.request(new Request(options)).toPromise().then(res => {
-      this.announceArticles(res.json().articles);
+      this.announceArticles(res.json());
     });
   }
 
@@ -117,6 +125,10 @@ export class ArticleService {
 
   announceArticles(articles: Object) {
     this._articles.next(articles);
+  }
+
+  announceListConfig(listConfig: Object) {
+    this._listConfig.next(listConfig);
   }
 
   private _buildHeaders() {

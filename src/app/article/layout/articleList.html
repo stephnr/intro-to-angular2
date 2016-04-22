@@ -14,7 +14,8 @@
 </div>
 
 <list-pagination
-	[limit]="limit"
 	[listConfig]="listConfig"
+	[limit]="limit"
+	(updateListConfig)="changeList($event)"
 	*ngIf="listConfig.totalPages > 1">
 </list-pagination>

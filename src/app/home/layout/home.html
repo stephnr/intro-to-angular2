@@ -20,15 +20,15 @@
             <li class="nav-item" *ngIf="isAuthorized(true)">
               <a href="#" class="nav-link"
                 [ngClass]="{active: listConfig.type === 'feed'}"
-                (click)="changeList({ type: 'feed' })">
+                (click)="changeList('feed')">
                 Your Feed
               </a>
             </li>
 
             <li class="nav-item">
               <a href="#" class="nav-link"
-                [ngClass]="{active: listConfig.type === 'all' && !listConfig.filters}"
-                (click)="changeList({ type: 'all' })">
+                [ngClass]="{active: listConfig.type === 'all'}"
+                (click)="changeList('all')">
                 Global Feed
               </a>
             </li>
@@ -47,7 +47,8 @@
           [loading]="loading"
           [limit]="limit"
           [listConfig]="listConfig"
-          [articles]="articles">
+          [articles]="articles"
+          (updateListConfig)="updateConfig($event)">
         </article-list>
 
       </div>

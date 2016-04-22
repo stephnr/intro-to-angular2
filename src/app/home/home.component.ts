@@ -4,7 +4,7 @@
 
 import {COMMON_DIRECTIVES} from 'angular2/common';
 
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit, OnDestroy} from 'angular2/core';
 import {Router, RouteParams, RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {Subscription} from 'rxjs/Subscription';
@@ -30,7 +30,7 @@ import {ArticleList} from '../article/articleList.component';
   directives:  [COMMON_DIRECTIVES, ROUTER_DIRECTIVES, ArticleList],
   providers:   [UserService, TagsService, ArticleService]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   public appName: string;
   public listConfig: any;
   public limit: number;
@@ -39,6 +39,7 @@ export class HomeComponent implements OnInit {
   public userSubscription: Subscription;
   public tagsSubscription: Subscription;
   public articlesSubscription: Subscription;
+  public listConfigSubscription: Subscription;
 
   public user: User;
   public tags: Object;
@@ -47,11 +48,12 @@ export class HomeComponent implements OnInit {
   public tagsLoaded: boolean;
 
   constructor(private _router: Router, private _routeParams: RouteParams, private _userService: UserService, private _tagsService: TagsService, private _articleService: ArticleService) {
+    this.resetVars();
+
     this.userSubscription = this._userService.userAnnounced$.subscribe(
       (user: User) => {
         this.loading = false;
         this.user = user;
-        this.listConfig.type = 'feed';
         this.runQuery();
       }
     );
@@ -64,9 +66,17 @@ export class HomeComponent implements OnInit {
     );
 
     this.articlesSubscription = this._articleService.articlesAnnounced$.subscribe(
-      (articles: any) => {
-        this.articles = articles;
-        this.listConfig.totalPages = Math.ceil(articles.length / this.limit);
+      (data: any) => {
+        this.loading = false;
+        this.articles = data.articles;
+        // Calculate the total number of pages
+        this.listConfig.totalPages = Math.ceil(data.articlesCount / this.limit);
+      }
+    );
+
+    this.listConfigSubscription = this._articleService.listConfigAnnounced$.subscribe(
+      (listConfig: any) => {
+        this.listConfig = listConfig;
       }
     );
   }
@@ -79,16 +89,22 @@ export class HomeComponent implements OnInit {
     this.limit = 10;
     this.appName = 'conduit';
     this.user = new User();
-    this.listConfig = {
-      type: 'all'
-    };
+    this.listConfig = {};
     this.tags = [];
     this.tagsLoaded = false;
   }
 
-  changeList(list: any) {
-    this.listConfig = list;
-    this.runQuery();
+  changeList(type: string) {
+    this.loading = true;
+    this.listConfig.type = type;
+    this.listConfig.currentPage = 0;
+    this.listConfig.filters.offset = 0;
+
+    this._articleService.query(this.listConfig);
+  }
+
+  updateConfig(newConfig: any) {
+    this._articleService.query(newConfig);
   }
 
   tagFilterExists() {
@@ -97,22 +113,29 @@ export class HomeComponent implements OnInit {
 
   runQuery() {
     let queryConfig = {
-      type:    this.listConfig.type,
-      filters: this.listConfig.filters || {}
+      limit:       this.limit || 2,
+      type:        this.listConfig.type || 'feed',
+      filters:     this.listConfig.filters || {},
+      currentPage: this.listConfig.currentPage || 0,
+      totalPages:  this.listConfig.totalPages || 1
     };
-    let currentPage = this.listConfig.currentPage || 0;
 
     // Add the offset filter
-    queryConfig.filters.offset = (this.limit * (currentPage - 1));
+    queryConfig.filters.offset = (this.limit * (queryConfig.currentPage));
 
-    // Run the query
+    // Run the query via updating the list config
     this._articleService.query(queryConfig);
   }
 
   ngOnInit() {
-    this.resetVars();
     this._userService.getUser();
     this._tagsService.getAll();
     this.runQuery();
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
+    this.articlesSubscription.unsubscribe();
+    this.tagsSubscription.unsubscribe();
   }
 }
