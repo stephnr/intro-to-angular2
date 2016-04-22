@@ -3,13 +3,10 @@
 ===============================================>>>>>*/
 
 import {NgIf} from 'angular2/common';
-import {Component, Input, OnInit, OnDestroy} from 'angular2/core';
+import {Component, Input, AfterContentChecked} from 'angular2/core';
 import {Router, RouterLink} from 'angular2/router';
 
-import {Subscription} from 'rxjs/Subscription';
-
 import {ArticleService} from '../common/services/articles.service';
-import {UserService} from '../common/services/user.service';
 
 import {User} from '../auth/components/user';
 import {Article} from './article';
@@ -24,28 +21,17 @@ import {FollowBtn} from '../common/components/followBtn.component';
 @Component({
   selector:    'article-actions',
   templateUrl: 'src/app/article/layout/articleActions.html',
-  providers:   [ArticleService, UserService],
+  providers:   [ArticleService],
   directives:  [NgIf, RouterLink, ArticleMeta, FavoriteButton, FollowBtn]
 })
-export class ArticleActions implements OnInit, OnDestroy {
+export class ArticleActions implements AfterContentChecked {
   public canModify: boolean;
   public isDeleting: boolean;
-  public user: User;
 
+  @Input() user: User;
   @Input() article: Article;
 
-  private _userSubscription: Subscription;
-
-  constructor(private _router: Router, private _articleService: ArticleService, private _userService: UserService) {
-    this.user = new User();
-
-    this._userSubscription = this._userService.userAnnounced$.subscribe(
-      user => {
-        this.user = user;
-        this.canModify = (this.user.username === this.article.author.username);
-      }
-    );
-  }
+  constructor(private _router: Router, private _articleService: ArticleService) {}
 
   deleteArticle() {
     this.isDeleting = true;
@@ -58,11 +44,9 @@ export class ArticleActions implements OnInit, OnDestroy {
 
   ngOnInit() {
     if(this.article === undefined) this.article = new Article();
-    this.canModify = false;
-    this._userService.getUser();
   }
 
-  ngOnDestroy() {
-    this._userSubscription.unsubscribe();
+  ngAfterContentChecked() {
+    this.canModify = (this.user.username === this.article.author.username);
   }
 }
