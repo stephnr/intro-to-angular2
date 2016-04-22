@@ -54,6 +54,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       (user: User) => {
         this.loading = false;
         this.user = user;
+        // Load the feed and not global
+        this.listConfig.type = 'feed';
         this.runQuery();
       }
     );
@@ -114,7 +116,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   runQuery() {
     let queryConfig = {
       limit:       this.limit || 2,
-      type:        this.listConfig.type || 'feed',
+      type:        this.listConfig.type || 'all',
       filters:     this.listConfig.filters || {},
       currentPage: this.listConfig.currentPage || 0,
       totalPages:  this.listConfig.totalPages || 1

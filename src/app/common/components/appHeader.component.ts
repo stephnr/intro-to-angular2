@@ -4,7 +4,7 @@
 
 import {NgIf} from 'angular2/common';
 
-import {Component, OnInit, OnDestroy} from 'angular2/core';
+import {Component, AfterContentChecked, OnDestroy} from 'angular2/core';
 import {Router, Location, RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {Subscription} from 'rxjs/Subscription';
@@ -21,15 +21,18 @@ import {User} from '../../auth/components/user';
   directives:  [NgIf, ROUTER_DIRECTIVES],
   providers:   [UserService]
 })
-export class AppHeader implements OnInit, OnDestroy {
+export class AppHeader implements AfterContentChecked, OnDestroy {
   public appName: string;
   public user: User;
+  public userExists: boolean;
 
   private userSubscription: Subscription;
 
   constructor(private _router: Router, private _location: Location, private _userService: UserService) {
     this.appName = 'conduit';
     this.user = new User();
+
+    this.userExists = false;
 
     this.userSubscription = this._userService.userAnnounced$.subscribe(
       user => {
@@ -57,8 +60,12 @@ export class AppHeader implements OnInit, OnDestroy {
   /*= End of HELPERS =*/
   /*=============================================<<<<<*/
 
-  ngOnInit() {
-    this._userService.getUser();
+  ngAfterContentChecked() {
+    if(this.user.id === 0 && !this.userExists && this._userService.isAuthorized()) {
+      // Lock the loop and fetch the user once
+      this.userExists = true;
+      this._userService.getUser();
+    }
   }
 
   ngOnDestroy() {
