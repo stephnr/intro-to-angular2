@@ -39,14 +39,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private _userSubscription: Subscription;
 
   constructor(private _router: Router, private _userService: UserService, private _profileService: ProfileService, private _routeParams: RouteParams, private _articleService: ArticleService) {
-    this.user = new User();
-    this.author = new User();
-
-    this.isLoginUser = false;
-
-    this.listConfig = {
-      type: 'all'
-    };
+    this.resetVars();
 
     this._articlesSubscription = this._articleService.articlesAnnounced$.subscribe(
       (data: any) => {
@@ -97,9 +90,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.runQuery();
   }
 
+  resetVars() {
+    this.user = new User();
+    this.author = new User();
+    this.isLoginUser = false;
+    this.listConfig = {};
+  }
+
   ngOnInit() {
     this._profileService.get(this._routeParams.params['username']).then(
       (res: any) => {
+        console.log(res.json().profile);
         this.author = res.json().profile;
         this.loadArticles();
       }

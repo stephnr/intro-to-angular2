@@ -31,29 +31,33 @@ export class ProfileService {
 
   // Retrieve a user's profile
   get(username: string) {
-    return this.http.get(`${APP_CONSTANTS.api}/${this._profileURL}/${username}`, this._buildSimpleHeaders()).toPromise();
+    let options = new RequestOptions({
+      url:    `${APP_CONSTANTS.api}/${this._profileURL}/${username}`,
+      method: 'GET',
+      headers: this._buildHeaders()
+    });
+
+    return this.http.request(new Request(options)).toPromise();
   }
 
   // Follow a user
   follow(username: string) {
-    return this.http.post(`${APP_CONSTANTS.api}/${this._profileURL}/${username}/follow`, null, this._buildAuthHeaders()).toPromise();
+    return this.http.post(`${APP_CONSTANTS.api}/${this._profileURL}/${username}/follow`, null, this._buildHeaders()).toPromise();
   }
 
   // Unfollow a user
   unfollow(username: string) {
-    return this.http.delete(`${APP_CONSTANTS.api}/${this._profileURL}/${username}/follow`, this._buildAuthHeaders()).toPromise();
+    return this.http.delete(`${APP_CONSTANTS.api}/${this._profileURL}/${username}/follow`, this._buildHeaders()).toPromise();
   }
 
   /*= End of METHODS =*/
   /*=============================================<<<<<*/
 
-  private _buildAuthHeaders() {
-    let headers = new Headers({ 'Content-Type': 'application/json', 'authorization': `Token ${this._jWTService.get()}` });
-    return (new RequestOptions({ headers: headers }));
-  }
-
-  private _buildSimpleHeaders() {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    return (new RequestOptions({ headers: headers }));
+  private _buildHeaders() {
+    if(this._jWTService.exists()) {
+      return (new Headers({ 'Content-Type': 'application/json', 'authorization': `Token ${this._jWTService.get()}` }));
+    } else {
+      return (new Headers({ 'Content-Type': 'application/json' }));
+    }
   }
 }
