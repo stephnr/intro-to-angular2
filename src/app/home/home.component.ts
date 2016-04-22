@@ -96,11 +96,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.tagsLoaded = false;
   }
 
-  changeList(type: string) {
+  changeList(type: string, tag: string) {
     this.loading = true;
     this.listConfig.type = type;
     this.listConfig.currentPage = 0;
     this.listConfig.filters.offset = 0;
+
+    // Provide the tag if one was given
+    if(tag) this.listConfig.filters.tag = tag;
 
     this._articleService.query(this.listConfig);
   }

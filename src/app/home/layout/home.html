@@ -27,7 +27,7 @@
 
             <li class="nav-item">
               <a href="#" class="nav-link"
-                [ngClass]="{active: listConfig.type === 'all'}"
+                [ngClass]="{active: listConfig.type === 'all' && !tagFilterExists()}"
                 (click)="changeList('all')">
                 Global Feed
               </a>
@@ -61,7 +61,7 @@
 
           <div class="tag-list" *ngIf="tags">
             <a href="#" class="tag-default tag-pill"
-              (click)="changeList({ type: 'all', filters: {tag: tagName} })"
+              (click)="changeList('all', tagName)"
               *ngFor="#tagName of tags">
               {{ tagName }}
             </a>
