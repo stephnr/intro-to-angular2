@@ -17,7 +17,7 @@
         </a>
       </li>
 
-      <li class="nav-item" *ngIf="!isAuthorized()">
+      <li class="nav-item" *ngIf="isAuthorized(false)">
         <a class="nav-link"
           [ngClass]="{active: isActive('LoginComponent')}"
           [routerLink]="[ 'Login' ]">
@@ -25,7 +25,7 @@
         </a>
       </li>
 
-      <li class="nav-item" *ngIf="!isAuthorized()">
+      <li class="nav-item" *ngIf="isAuthorized(false)">
         <a class="nav-link"
           [ngClass]="{active: isActive('RegisterComponent')}"
           [routerLink]="[ 'Register' ]">
@@ -35,30 +35,30 @@
 
       <!-- Show for Authorized Users Only -->
 
-      <!-- <li class="nav-item" *ngIf="isAuthorized()">
+      <li class="nav-item" *ngIf="isAuthorized(true)">
         <a class="nav-link"
           [ngClass]="{active: isActive('EditorComponent')}"
           [routerLink]="[ 'Editor' ]">
-          <i class="ion-compose"></i>&nbsp;New Post
+          <i class="ion-compose"></i>&nbsp;New Article
         </a>
-      </li> -->
+      </li>
 
-      <!-- <li class="nav-item" *ngIf="isAuthorized()">
+      <li class="nav-item" *ngIf="isAuthorized(true)">
         <a class="nav-link"
           [ngClass]="{active: isActive('SettingsComponent')}"
           [routerLink]="[ 'Settings' ]">
           <i class="ion-gear-a"></i>&nbsp;Settings
         </a>
-      </li> -->
+      </li>
 
-      <!-- <li class="nav-item" *ngIf="isAuthorized()">
+      <li class="nav-item" *ngIf="isAuthorized(true)">
         <a class="nav-link"
-          [ngClass]="{active: isActive('UserPageComponent')}"
-          [routerLink]="[ 'User', { username: currentUser.username } ]">
-          <img [src]="currentUser.image" class="user-pic"/>
-          {{ currentUser.username }}
+          [ngClass]="{ active: isActive('ProfileComponent') }"
+          [routerLink]="[ 'Profile', { username: user.username } ]">
+          <img [src]="user.image" class="user-pic" *ngIf="imageExists()"/>
+          {{ user.username }}
         </a>
-      </li> -->
+      </li>
 
     </ul>
 

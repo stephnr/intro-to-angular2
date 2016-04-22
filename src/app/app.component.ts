@@ -27,9 +27,13 @@ import {ConduitRouterOutlet} from './common/components/conduitRouterOutlet.compo
 import {AppHeader} from './common/components/appHeader.component';
 import {AppFooter} from './common/components/appFooter.component';
 
+import { ArticleComponent } from './article/article.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/components/login.component';
 import { RegisterComponent } from './auth/components/register.component';
+import { EditorComponent } from './editor/editor.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ProfileComponent } from './profile/profile.component';
 
 /*= End of ROUTE COMPONENTS =*/
 /*=============================================<<<<<*/
@@ -40,17 +44,14 @@ import { RegisterComponent } from './auth/components/register.component';
   directives: [ROUTER_DIRECTIVES, ConduitRouterOutlet, AppHeader, AppFooter]
 })
 @RouteConfig([
-
   { path: '/home', name: 'Home', component: HomeComponent, useAsDefault: true },
   { path: '/login', name: 'Login', component: LoginComponent  },
-  // { path: '/logout', name: 'Logout', component: LogoutComponent  },
   { path: '/register', name: 'Register', component: RegisterComponent  },
-  // { path: '/settings', name: 'Settings', component: SettingsComponent  },
-  // { path: '/editor', name: 'Editor', component: EditorComponent  },
-  // { path: '/editor/:articleId', name: 'Edit-Article', component: EditArticleComponent  },
-  // { path: '/article/:articleId', name: 'View-Article', component: ArticleComponent  },
-  // { path: '/@/:username', name: 'User', component: UserPageComponent  },
-  // { path: '/@/:username', name: 'User-Favorites', component: UserFavoritesComponent  }
+  { path: '/settings', name: 'Settings', component: SettingsComponent  },
+  { path: '/editor', name: 'Editor', component: EditorComponent  },
+  { path: '/editor/:slug', name: 'Edit-Article', component: EditorComponent  },
+  { path: '/article/:slug', name: 'View-Article', component: ArticleComponent  },
+  { path: '/@/:username', name: 'Profile', component: ProfileComponent  }
 ])
 export class AppComponent {
   constructor(private _router: Router, title: Title, private SiteTitleService: SiteTitleService) {

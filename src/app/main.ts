@@ -8,7 +8,7 @@ import {AppComponent}     from './app.component';
 import {Title} from 'angular2/platform/browser';
 
 import {provide} from 'angular2/core';
-import {APP_BASE_HREF} from 'angular2/router';
+import {APP_BASE_HREF, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import {HTTP_PROVIDERS} from 'angular2/http';
 
 import {SiteTitleService} from './common/services/siteTitle.service';
@@ -21,4 +21,6 @@ bootstrap(AppComponent, [
   SiteTitleService,
   JWTService,
   provide(APP_BASE_HREF, {useValue : '/'}),
+  // Turn off Hash Strategy in PROD for extra 'fanciness' :)
+  provide(LocationStrategy, {useClass: HashLocationStrategy}),
 ]);

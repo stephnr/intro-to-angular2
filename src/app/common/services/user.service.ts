@@ -6,6 +6,7 @@ import {Router} from 'angular2/router';
 
 import {JWTService} from '../../common/services/jwt.service';
 import {UserServiceInterface} from '../../common/services/definitions/user.d.ts';
+import {User} from '../../auth/components/user';
 
 import {APP_CONSTANTS} from '../constants/app.constants';
 
@@ -31,7 +32,7 @@ export class UserService implements UserServiceInterface {
   }
 
   update(fields: any) {
-    return this.http.put(`${APP_CONSTANTS.api}/user`, JSON.stringify({ user: fields }))
+    return this.http.put(`${APP_CONSTANTS.api}/user`, JSON.stringify({ user: fields }), this._buildAuthHeaders())
     .toPromise().then(res => {
       this.announcedUserUpdate(res.json().user);
     }).catch(err => {

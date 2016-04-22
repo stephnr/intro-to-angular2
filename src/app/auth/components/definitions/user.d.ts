@@ -1,4 +1,4 @@
-interface User {
+interface UserInterface {
   bio: string;
   createdAt: string;
   email: string;
@@ -7,4 +7,6 @@ interface User {
   token: string;
   updatedAt: string;
   username: string;
+  following: boolean;
+  password: string;
 }

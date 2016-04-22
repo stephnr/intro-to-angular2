@@ -1,0 +1,27 @@
+<article-meta [article]="article">
+
+  <!-- If current user is the author, show edit/delete buttons -->
+  <span *ngIf="canModify">
+
+    <a class="btn btn-outline-secondary btn-sm"
+    			[routerLink]="['Edit-Article', { slug: article.slug }]">
+      <i class="ion-edit"></i> Edit Article
+    </a>
+
+    <button class="btn btn-outline-danger btn-sm"
+			[ngClass]="{'disabled': isDeleting}"
+			(click)="deleteArticle()">
+      <i class="ion-trash-a"></i> Delete Article
+    </button>
+
+  </span>
+
+  <!-- Otherwise, show favorite & follow buttons -->
+  <span *ngIf="!canModify">
+    <follow-btn [user]="user" [author]="article.author"></follow-btn>
+    <favorite-btn [article]="article">
+      {{ article.favorited ? 'Unfavorite' : 'Favorite' }} Article <span class="counter">({{article.favoritesCount}})</span>
+    </favorite-btn>
+  </span>
+
+</article-meta>

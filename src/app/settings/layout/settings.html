@@ -1,0 +1,73 @@
+<div class="settings-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xs-12">
+
+        <h1 class="text-xs-center">Your Settings</h1>
+
+        <list-errors [errors]="errors"></list-errors>
+
+        <form (ngSubmit)="submitForm()">
+          <fieldset [ngClass]="{'disabled': isSubmitting}">
+
+            <fieldset class="form-group">
+              <input class="form-control"
+                type="text"
+                placeholder="URL of profile picture"
+                [(ngModel)]="user.image"
+                [disabled]="isSubmitting" />
+            </fieldset>
+
+            <fieldset class="form-group">
+              <input class="form-control form-control-lg"
+                type="text"
+                placeholder="Username"
+                [(ngModel)]="user.username"
+                [disabled]="isSubmitting" />
+            </fieldset>
+
+            <fieldset class="form-group">
+              <textarea class="form-control form-control-lg"
+                rows="8"
+                placeholder="Short bio about you"
+                [(ngModel)]="user.bio"
+                [disabled]="isSubmitting">
+              </textarea>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <input class="form-control form-control-lg"
+                type="email"
+                placeholder="Email"
+                [(ngModel)]="user.email"
+                [disabled]="isSubmitting" />
+            </fieldset>
+
+            <fieldset class="form-group">
+              <input class="form-control form-control-lg"
+                type="password"
+                placeholder="New Password"
+                [(ngModel)]="user.password"
+                [disabled]="isSubmitting" />
+            </fieldset>
+
+            <button class="btn btn-lg btn-primary pull-xs-right"
+              type="submit" [disabled]="isSubmitting">
+              Update Settings
+            </button>
+
+          </fieldset>
+        </form>
+
+        <!-- Line break for logout button -->
+        <hr />
+
+        <button class="btn btn-outline-danger"
+          (click)="logout()" [disabled]="isSubmitting">
+          Or click here to logout.
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>

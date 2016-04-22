@@ -43,6 +43,8 @@ gulp.task('sass', function() {
     .pipe(gulp.dest("./src/css/"));
 });
 
-gulp.task('default', [ 'sass' ], function() {
+gulp.task('compile', [ 'sass' ], function() {
     gulp.watch(sassFiles, [ 'sass' ]);
 });
+
+gulp.task('default', [ 'compile' ]);

@@ -3,4 +3,7 @@ interface SiteTitles {
   home:     string;
   login:    string;
   register: string;
+  settings: string;
+  editor:   string;
+  article:  string;
 }

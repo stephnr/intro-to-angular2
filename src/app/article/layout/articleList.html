@@ -1,0 +1,21 @@
+<article-preview
+	*ngFor="#article of articles"
+	[article]="article">
+</article-preview>
+
+<div class="article-preview"
+  *ngIf="loading && !articlesExist()">
+  Loading articles...
+</div>
+
+<div class="article-preview"
+  *ngIf="!loading && !articlesExist()">
+  No articles are here... yet.
+</div>
+
+<list-pagination
+	[listConfig]="listConfig"
+	[limit]="limit"
+	(updateListConfig)="changeList($event)"
+	*ngIf="listConfig.totalPages > 1">
+</list-pagination>

@@ -1,5 +1,9 @@
 /// <reference path="./definitions/user.d.ts"/>
 
+/*=============================================>>>>>
+= REQUIRED MODULES =
+===============================================>>>>>*/
+
 import {FORM_DIRECTIVES, ControlGroup, Control} from 'angular2/common';
 import {Component, Input, OnInit, OnDestroy} from 'angular2/core';
 import {Router} from 'angular2/router';
@@ -9,6 +13,9 @@ import {Subscription} from 'rxjs/Subscription';
 import {ListErrorsComponent} from '../../common/components/listErrors.component';
 import {UserService} from '../../common/services/user.service';
 
+/*= End of REQUIRED MODULES =*/
+/*=============================================<<<<<*/
+
 @Component({
   selector:    'auth-form',
   templateUrl: 'src/app/auth/layout/authForm.html',
@@ -16,15 +23,17 @@ import {UserService} from '../../common/services/user.service';
   providers:   [UserService]
 })
 export class AuthFormComponent implements OnInit, OnDestroy {
-  formData: Object;
-  errors: Object;
+  public isSubmitting: boolean;
+  public formData: ControlGroup;
+  public errors: Object;
 
-  subscription: Subscription;
+  public subscription: Subscription;
 
   @Input() authType: string;
   @Input() submitTitle: string;
 
   constructor(private _userService: UserService, private _router: Router) {
+    this.isSubmitting = false;
     this.formData = new ControlGroup({
       username: new Control(''),
       email:    new Control(''),
@@ -41,9 +50,14 @@ export class AuthFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.isSubmitting = true;
     this._userService.attemptAuth(this.authType, JSON.stringify({
       user: this.formData['value']
-    }));
+    })).then(() => {
+      this.isSubmitting = false;
+    }).catch(() => {
+      this.isSubmitting = false;
+    });
   }
 
   ngOnInit() {
