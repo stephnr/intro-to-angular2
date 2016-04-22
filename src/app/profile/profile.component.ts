@@ -28,7 +28,7 @@ import {User} from '../auth/components/user';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   public user: User;
-  public author: string;
+  public author: User;
   public isLoginUser: boolean;
   public loading: boolean;
   public listConfig: any;
@@ -40,21 +40,25 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   constructor(private _router: Router, private _userService: UserService, private _profileService: ProfileService, private _routeParams: RouteParams, private _articleService: ArticleService) {
     this.user = new User();
+    this.author = new User();
+
     this.isLoginUser = false;
-    this.author = this._routeParams.params['username'];
+
     this.listConfig = {
       type: 'all'
     };
 
     this._articlesSubscription = this._articleService.articlesAnnounced$.subscribe(
-      (articles: any) => {
-        this.articles = articles;
-        this.listConfig.totalPages = Math.ceil(articles.length / 5);
+      (data: any) => {
+        this.articles = data.articles;
+        this.listConfig.totalPages = Math.ceil(data.articlesCount / 5);
       }
     );
 
     this._userSubscription = this._userService.userAnnounced$.subscribe(
       (user: any) => {
+        this.user = user;
+        // Check if the user and author match
         if(this._routeParams.params['username'] === user.username) {
           this.isLoginUser = true;
         }
@@ -64,21 +68,26 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   runQuery() {
     let queryConfig = {
-      type:    this.listConfig.type,
-      filters: this.listConfig.filters || {}
+      limit:       10,
+      type:        this.listConfig.type || 'all',
+      filters:     this.listConfig.filters || {},
+      currentPage: this.listConfig.currentPage || 0,
+      totalPages:  this.listConfig.totalPages || 1
     };
-    let currentPage = this.listConfig.currentPage || 0;
+
+    // Filter posts by this user
+    queryConfig.filters.author = this.author.username;
 
     // Add the offset filter
-    queryConfig.filters.offset = (5 * (currentPage - 1));
+    queryConfig.filters.offset = (queryConfig.limit * (queryConfig.currentPage));
 
-    // Run the query
+    // Run the query via updating the list config
     this._articleService.query(queryConfig);
   }
 
   loadArticles() {
     this.loadedFavorites = false;
-    this.listConfig.filters = { author: this.user.username };
+    this.listConfig.filters = { author: this.author.username };
     this.runQuery();
   }
 
@@ -89,9 +98,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._profileService.get(this.author).then(
+    this._profileService.get(this._routeParams.params['username']).then(
       (res: any) => {
-        this.user = res.json().profile;
+        this.author = res.json().profile;
         this.loadArticles();
       }
     );

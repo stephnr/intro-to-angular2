@@ -115,7 +115,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   runQuery() {
     let queryConfig = {
-      limit:       this.limit || 2,
+      limit:       this.limit || 10,
       type:        this.listConfig.type || 'all',
       filters:     this.listConfig.filters || {},
       currentPage: this.listConfig.currentPage || 0,

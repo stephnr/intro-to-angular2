@@ -6,11 +6,13 @@
       <div class="row">
         <div class="col-xs-12 col-md-10 offset-md-1">
 
-          <img [src]="user.image" class="user-img" />
-          <h4>{{ user.username }}</h4>
-          <p>{{ user.bio }}</p>
+          <img [src]="author.image" class="user-img" />
+          <h4>{{ author.username }}</h4>
+          <p>{{ author.bio }}</p>
 					<!-- Show if not the current users profile page -->
-					<follow-btn *ngIf="!isLoginUser" [user]="user" [author]="user"></follow-btn>
+
+          <follow-btn *ngIf="!isLoginUser" [user]="user" [author]="author"></follow-btn>
+
 					<!-- Show if current user -->
           <a [routerLink]="['Settings']"
             class="btn btn-sm btn-outline-secondary action-btn"
@@ -52,12 +54,13 @@
           </ul>
         </div>
 
-        <!-- View where profile-articles renders to -->
-				<article-list
+        <!-- View where articles renders to -->
+        <article-list
           [loading]="loading"
-          [limit]="5"
+          [limit]="limit"
           [listConfig]="listConfig"
-          [articles]="articles">
+          [articles]="articles"
+          (updateListConfig)="updateConfig($event)">
         </article-list>
 
       </div>
