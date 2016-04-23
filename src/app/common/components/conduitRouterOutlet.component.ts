@@ -17,6 +17,7 @@ export class ConduitRouterOutlet extends RouterOutlet {
       'home': true,
       'login': true,
       'register': true,
+      'article': true,
       '@': true
     };
   }

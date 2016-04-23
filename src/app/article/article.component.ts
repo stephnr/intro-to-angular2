@@ -105,7 +105,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this._userService.getUser();
+    this._userService.getUser();
   }
 
   ngOnDestroy() {
