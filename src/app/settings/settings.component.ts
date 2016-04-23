@@ -29,6 +29,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   public user: User;
 
   private userSubscription: Subscription;
+  private errorSubscription: Subscription;
 
   constructor(private _router: Router, private _userService: UserService) {
     this.isSubmitting = false;
@@ -37,7 +38,15 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
     this.userSubscription = this._userService.userAnnounced$.subscribe(
       (user: any) => {
+        this.isSubmitting = false;
         this.user = user;
+      }
+    );
+
+    this.errorSubscription = this._userService.errorsAnnounced$.subscribe(
+      (data: any) => {
+        this.isSubmitting = false;
+        this.errors = data.errors;
       }
     );
   }
@@ -51,16 +60,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
       bio: this.user.bio,
       email: this.user.email,
       password: this.user.password
-    }).then(
-      (user) => {
-        this.isSubmitting = false;
-        this._router.navigate(['Profile', { username: this.user.username }]);
-      },
-      (err) => {
-        this.isSubmitting = false;
-        this.errors = err.json().errors;
-      }
-    )
+    });
   }
 
   logout() {

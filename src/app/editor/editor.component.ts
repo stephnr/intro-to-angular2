@@ -7,6 +7,8 @@ import {FORM_DIRECTIVES, ControlGroup, Control} from 'angular2/common';
 
 import {Router, RouteParams} from 'angular2/router';
 
+import {ListErrorsComponent} from '../common/components/listErrors.component';
+
 import {ArticleService} from '../common/services/articles.service';
 import {Article} from '../article/article';
 
@@ -17,7 +19,7 @@ import {Article} from '../article/article';
   selector:    'editor',
   templateUrl: 'src/app/editor/layout/editor.html',
   providers:   [ArticleService],
-  directives:  [FORM_DIRECTIVES]
+  directives:  [FORM_DIRECTIVES, ListErrorsComponent]
 
 })
 export class EditorComponent {
@@ -32,6 +34,7 @@ export class EditorComponent {
 
     this.article = new Article();
     this.tagList = new Array<string>();
+    this.errors = {};
 
     if(this._routeParams.params['slug'] !== undefined) {
       this.editMode = true;
@@ -79,7 +82,12 @@ export class EditorComponent {
     // Save the post
     this._articleService.save(this.article).then(
       (res: any) => {
-        this._router.navigate(['View-Article', { slug: res.json().article.slug }]);
+        if(res.json().article.slug.length > 0) {
+          this._router.navigate(['View-Article', { slug: res.json().article.slug }]);
+        } else {
+          this.isSubmitting = false;
+          this.errors = { 'article': [ 'title is missing' ] }
+        }
       },
       (err: any) => {
         this.isSubmitting = false;

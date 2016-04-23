@@ -7,8 +7,9 @@ import {NgIf, NgFor} from 'angular2/common';
   directives:  [NgIf, NgFor]
 })
 export class ListErrorsComponent {
-  appName: string;
-  errorKeys: Array<string>;
+  public appName: string;
+  public errorKeys: Array<string>;
+
   @Input() errors: any;
 
   constructor() {
@@ -16,8 +17,8 @@ export class ListErrorsComponent {
   }
 
   getErrors(key) {
-    if(this.errors.errors.hasOwnProperty(key)) {
-      return this.errors.errors[key];
+    if(this.errors.hasOwnProperty(key)) {
+      return this.errors[key];
     } else {
       return [];
     }
@@ -25,9 +26,9 @@ export class ListErrorsComponent {
 
   buildErrors() {
     if(Object.keys(this.errors).length > 0) {
-      this.errorKeys = Object.keys(this.errors.errors);
+      this.errorKeys = Object.keys(this.errors);
     } else {
-      this.errors = { errors: {} };
+      this.errors = { };
     }
   }
 
