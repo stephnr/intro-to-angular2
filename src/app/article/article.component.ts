@@ -13,7 +13,6 @@ import {Subscription} from 'rxjs/Subscription';
 import {ArticleService} from '../common/services/articles.service';
 import {UserService} from '../common/services/user.service';
 import {CommentService} from '../common/services/comments.service';
-import {ProfileService} from '../common/services/profile.service';
 
 import {User} from '../auth/components/user';
 import {Article} from './article';
@@ -30,7 +29,7 @@ import {Comment} from './comment.component';
   selector:    'article',
   templateUrl: 'src/app/article/layout/article.html',
   directives:  [RouterLink, ArticleActions, Comment, FavoriteButton, ListErrorsComponent],
-  providers:   [ArticleService, UserService, CommentService, ProfileService]
+  providers:   [ArticleService, UserService, CommentService]
 })
 export class ArticleComponent implements OnInit, OnDestroy {
   public article: Article;
@@ -106,7 +105,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._userService.getUser();
+    // this._userService.getUser();
   }
 
   ngOnDestroy() {

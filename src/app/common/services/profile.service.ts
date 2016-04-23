@@ -47,7 +47,14 @@ export class ProfileService {
 
   // Unfollow a user
   unfollow(username: string) {
-    return this.http.delete(`${APP_CONSTANTS.api}/${this._profileURL}/${username}/follow`, this._buildHeaders()).toPromise();
+    // Create the $http object for this request
+    let options = new RequestOptions({
+      url:    `${APP_CONSTANTS.api}/${this._profileURL}/${username}/follow`,
+      method: 'DELETE',
+      headers: this._buildHeaders()
+    });
+
+    return this.http.request(new Request(options)).toPromise();
   }
 
   /*= End of METHODS =*/

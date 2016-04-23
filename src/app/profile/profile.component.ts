@@ -68,9 +68,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       totalPages:  this.listConfig.totalPages || 1
     };
 
-    // Filter posts by this user
-    queryConfig.filters.author = this.author.username;
-
     // Add the offset filter
     queryConfig.filters.offset = (queryConfig.limit * (queryConfig.currentPage));
 
