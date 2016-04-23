@@ -97,7 +97,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._profileService.get(this._routeParams.params['username']).then(
       (res: any) => {
-        console.log(res.json().profile);
         this.author = res.json().profile;
         this.loadArticles();
       }
