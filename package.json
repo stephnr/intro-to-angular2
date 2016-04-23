@@ -1,6 +1,6 @@
 {
   "name": "intro-to-angular2",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An Introductory tutorial to AngularJS 2 in Typescript",
   "main": "src/index.js",
   "scripts": {
