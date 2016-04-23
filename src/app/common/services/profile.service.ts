@@ -42,7 +42,14 @@ export class ProfileService {
 
   // Follow a user
   follow(username: string) {
-    return this.http.post(`${APP_CONSTANTS.api}/${this._profileURL}/${username}/follow`, null, this._buildHeaders()).toPromise();
+    // Create the $http object for this request
+    let options = new RequestOptions({
+      url:    `${APP_CONSTANTS.api}/${this._profileURL}/${username}/follow`,
+      method: 'POST',
+      headers: this._buildHeaders()
+    });
+
+    return this.http.request(new Request(options)).toPromise();
   }
 
   // Unfollow a user

@@ -45,17 +45,15 @@ export class FollowBtn {
       this._profileService.unfollow(this.author.username).then(
         (res: any) => {
           this.isSubmitting = false;
-          this.author.following = false;
-          this._articleService.announceArticles(res.json().article);
+          this.author = res.json().profile;
         }
       )
-    // Otherwise, follow them
     } else {
+      // Otherwise, follow them
       this._profileService.follow(this.author.username).then(
         (res: any) => {
           this.isSubmitting = false;
-          this.author.following = true;
-          this._articleService.announceArticles(res.json().article);
+          this.author = res.json().profile;
         }
       );
     }
