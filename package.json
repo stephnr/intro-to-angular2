@@ -5,9 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "postinstall": "typings install",
-    "start": "concurrently \"npm run lite\"",
     "lite": "lite-server -c config/bs-config.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "concurrently \"npm run tsc:w\" \"npm run lite\" \"gulp\"",
+    "tsc:w": "tsc -w"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,14 @@
     "zone.js": "0.6.8"
   },
   "devDependencies": {
-    "typings": "0.7.9"
+    "gulp": "3.9.1",
+    "gulp-autoprefixer": "3.1.0",
+    "gulp-load-plugins": "1.2.2",
+    "gulp-notify": "2.2.0",
+    "gulp-postcss": "6.1.0",
+    "gulp-sass": "2.3.1",
+    "node-sass": "3.6.0",
+    "typings": "0.7.9",
+    "zone.js": "0.6.10"
   }
 }

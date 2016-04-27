@@ -26,5 +26,8 @@ src/app/**/*.js
 # Typescript compiled map files
 src/app/**/*.js.map
 
+# Build Folder
+bin/
+
 # Stylesheets
 src/css

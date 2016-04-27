@@ -4,6 +4,7 @@
     "module": "system",
     "moduleResolution": "node",
     "sourceMap": true,
+    "outDir": "bin/app",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": false,
