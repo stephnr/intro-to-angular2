@@ -78,6 +78,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this._commentService.add(this.article.slug, this.commentForm.value.body).then(
       (comment: any) => {
         this.isSubmitting = false;
+        this.commentForm = new ControlGroup({ body: new Control('') });
         this.comments.unshift(comment.json().comment);
       }
     ).catch(
