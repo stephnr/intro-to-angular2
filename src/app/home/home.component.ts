@@ -104,6 +104,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     // Provide the tag if one was given
     if(tag) this.listConfig.filters.tag = tag;
+    // Otherwise empty it
+    else this.listConfig.filters = {};
 
     this._articleService.query(this.listConfig);
   }
