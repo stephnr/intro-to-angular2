@@ -40,7 +40,6 @@
     "gulp-postcss": "6.1.0",
     "gulp-sass": "2.3.1",
     "node-sass": "3.6.0",
-    "typings": "0.7.9",
-    "zone.js": "0.6.10"
+    "typings": "0.7.9"
   }
 }

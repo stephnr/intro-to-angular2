@@ -28,12 +28,12 @@ import {AppHeader} from './common/components/appHeader.component';
 import {AppFooter} from './common/components/appFooter.component';
 
 import { ArticleComponent } from './article/article.component';
+import { EditorComponent } from './editor/editor.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/components/login.component';
-import { RegisterComponent } from './auth/components/register.component';
-import { EditorComponent } from './editor/editor.component';
-import { SettingsComponent } from './settings/settings.component';
 import { ProfileComponent } from './profile/profile.component';
+import { RegisterComponent } from './auth/components/register.component';
+import { SettingsComponent } from './settings/settings.component';
 
 /*= End of ROUTE COMPONENTS =*/
 /*=============================================<<<<<*/
